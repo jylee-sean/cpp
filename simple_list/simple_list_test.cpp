@@ -18,17 +18,13 @@ int main()
         if(cin >> ch && toupper(ch) == 'Q'){
             break;
         }
-        cout<<ch<<'\n';
-        cout<<cin.get()<<'\n';
-        
-        //cout<<ch<<'\n';
-        //while(cin.get() !='\n')
-        //     cout<<"cin get\n";
-        //     continue;
-        // if(!isalpha(ch)){
-        //     cout<<'\a';
-        //     continue;
-        // }
+
+        while(cin.get() !='\n')
+            continue;
+        if(!isalpha(ch)){
+            cout<<'\a';
+            continue;
+        }
         switch(ch){
             case 'A':
             case 'a':  cout<<"input data: ";
