@@ -32,29 +32,31 @@ namespace phy
 	{
         private:
             T **m;
-            int ROW;
-            int COL;
-            
+            std::size_t ROW;
+            std::size_t COL;
         public:
 
-		using value_type = T;
+			using value_type = T;
+    	    enum {ZERO = 0, INCREASE = 1};
+			int TYPE;
 
 		matrix() = delete;
 
-		matrix(const std::size_t row, const std::size_t col) {
+		matrix(const std::size_t row, const std::size_t col, int type): ROW(row), COL(col), TYPE(type) {
 			//TODO:
-			ROW = row;
-			COL = col;
 
             m = new T*[row];
             for(int i=0;i<row; ++i){
                 m[i]=new T[col];
             }
-
             int cnt=0;
             for(int i=0;i<row; i++)
                 for(int j=0; j<col; j++)
-                    m[i][j]=cnt++;
+					if(type == ZERO){
+						m[i][j]=0;
+					}else{
+                    	m[i][j]=cnt++;
+					}
 		}
 
         void mprint(){
@@ -85,13 +87,25 @@ namespace phy
 			return this->COL;
 		}
 
+		inline bool compareSize(std::size_t r, std::size_t c) const {
+			bool isSameSize = true;
+			try{
+				if((this->rows() != r) ||  (this->cols() != c) )  throw -1;
+				else return isSameSize;
+
+			}catch(int exception){
+				cout<<"cannot prooceed operation (size is differenct)";
+				return false;
+			}
+		}
+
 		/**
 		 * get a identity matrix
 		 * @return		always indentity matrix
 		 */
-		static matrix<T> identity() {
+		static matrix<T> identity(const std::size_t row, std::size_t col) {
 			//TODO:
-            matrix<T> tmp(ROW, COL);
+            matrix<T> tmp(row, col, tmp.ZERO);
 
             for(int i=0;i<tmp.rows();i++){
                 for(int j=0;j<tmp.cols();j++){
@@ -102,7 +116,6 @@ namespace phy
                     }
                 }
             }
-
             return tmp;
 		}
 
@@ -111,15 +124,15 @@ namespace phy
 		 * @warning		be aware that this method returns a matrix newly created instead of changing current instance
 		 * @return		always transposition matrix
 		 */
-		matrix<T> transpose() {
+		matrix<T> transpose(const std::size_t row, std::size_t col) {
 			//TODO:
-            matrix<T> tmp(row,col);
-			// for(std::size_t row = 0; row < this->rows(); row++) {
-			// 	for(std::size_t col = 0; col < this->cols(); col++) {
-			// 		ret._array[col * this->rows() + row] = this->operator()(row,col);
-			// 	}
-			// }
-			// return ret;
+            matrix<T> tmp(row,col,tmp.ZERO);
+			for(int i = 0; i < this->rows(); i++) {
+			 	for(int j = 0; j < this->cols(); j++) {
+					tmp.m[i][j]=m[j][i];			 	
+				}
+			}
+			return tmp;
 		}
 
 		/**
@@ -129,7 +142,9 @@ namespace phy
 		 */
 		T& operator()(const std::size_t i) {
 			//TODO:
-
+			int row = (int)i/(this->cols());
+			int col = i%(this->cols());
+			return m[row][col];	
  
 		}
 
@@ -140,6 +155,11 @@ namespace phy
 		 */
 		const T& operator()(const std::size_t i) const {
 			//TODO:
+
+			int row = (int)i/(this->cols());
+			int col = i%(this->cols());
+			return m[row][col];	
+
 		}
 
 		/**
@@ -148,8 +168,9 @@ namespace phy
 		 * @param		col is the column index of the matrix
 		 * @return		always reference of the value
 		 */
- 		T& operator()(const std::size_t row, std::size_t col) {
+ 		T& operator()(std::size_t row, std::size_t col) {
 			//TODO:
+			return m[row][col];	
 		}
 
 		/**
@@ -160,6 +181,7 @@ namespace phy
 		 */
 		const T& operator()(std::size_t row, std::size_t col) const {
 			//TODO:
+			return m[row][col];
 		}
 
 		/**
@@ -169,6 +191,18 @@ namespace phy
 		 */
 		bool operator==(const matrix<T>& rhs) const {
 			//TODO:
+			this->compareSize(rhs.rows(), rhs.cols());
+
+			bool isSame = true;
+				
+			for(int i=0;i<this->rows();i++){
+				for(int j=0;j<this->cols();j++){
+					if(rhs.m[i][j] != m[i][j]){
+						return false;
+					}
+				}
+			}
+			return isSame;
 		}
 
 		/**
@@ -178,6 +212,17 @@ namespace phy
 		 */
 		bool operator!=(const matrix<T>& rhs) const {
 			//TODO:
+			this->compareSize(rhs.rows(), rhs.cols());
+
+			bool isNotSame = true;
+			for(int i=0;i<this->rows();i++){
+				for(int j=0;j<this->cols();j++){
+					if(rhs.m[i][j] != m[i][j]){
+						return isNotSame;
+					}
+				}
+			}
+			return false;
 		}
 
 		/**
@@ -187,6 +232,14 @@ namespace phy
 		 */
 		matrix operator+(const matrix<T>& rhs) const {
 			//TODO:
+			/* compare size is necessary */
+			matrix<T> tmp(this->rows(),this->cols(), tmp.ZERO);
+			for(int i = 0; i < this->rows(); i++) {
+			 	for(int j = 0; j < this->cols(); j++) {
+					tmp.m[i][j]=m[i][j] + rhs.m[i][j];			 	
+				}
+			}
+			return tmp;
 		}
 
 		/**
@@ -196,6 +249,13 @@ namespace phy
 		 */
 		matrix operator-(const matrix<T>& rhs) const {
 			//TODO:
+			matrix<T> tmp(this->rows(),this->cols(), tmp.ZERO);
+			for(int i = 0; i < this->rows(); i++) {
+			 	for(int j = 0; j < this->cols(); j++) {
+					tmp.m[i][j]=m[i][j] - rhs.m[i][j];			 	
+				}
+			}
+			return tmp;
 		}
 
 		/**
@@ -205,6 +265,14 @@ namespace phy
 		 */
 		matrix operator*(const T& rhs) const {
 			//TODO:
+
+			matrix<T> tmp(this->rows(),this->cols(), tmp.ZERO);
+			for(int i = 0; i < this->rows(); i++) {
+			 	for(int j = 0; j < this->cols(); j++) {
+					tmp.m[i][j]=m[i][j] * (rhs);			 	
+				}
+			}
+			return tmp;
 		}
 
 		/**
@@ -214,6 +282,18 @@ namespace phy
 		 */
 		matrix operator/(const T& rhs) const {
 			//TODO:
+			try{
+				if(rhs==0) throw -1;
+				matrix<T> tmp(this->rows(),this->cols(), tmp.ZERO);
+				for(int i = 0; i < this->rows(); i++) {
+					for(int j = 0; j < this->cols(); j++) {
+						tmp.m[i][j]=m[i][j] / (rhs);			 	
+					}
+				}
+				return tmp;
+			}catch(int exception){
+				cout<<"divide by 0 \n";
+			}
 		}
 
 		/**
@@ -225,47 +305,116 @@ namespace phy
 		 */
 		matrix<T> operator*(const matrix<T>& rhs) const {
 			//TODO:
+			
+			try{
+				/*size comparison*/
+				if(this->cols() != rhs.rows()) throw -1;
+				matrix<T> tmp(this->rows(),rhs.cols(),tmp.ZERO);
+				
+				for(int i=0; i<this->rows(); i++){
+					for(int j=0; j<rhs.cols(); j++){
+						for(int k=0; k<this->cols(); k++){
+							tmp.m[i][j]+=m[i][k]*rhs.m[k][j];
+						}
+					}
+				}
+				return tmp;
+
+			}catch(int exception){
+				cout<<"cannot calculate(size is not fit)\n";
+			}
 		}
 
 		/**
 		 * get the minimum of all its coefficients
 		 * return		always minimum value of all its coefficients
 		 */
+
+		template<typename U = T>
 		T min() const {
 			//TODO:
+			U minValue = 9999u;
+
+			for(int i=0;i<this->rows();i++){
+				for(int j=0;j<this->cols();j++){
+					if(minValue > m[i][j]){
+						minValue = m[i][j];
+					}
+				}
+			}
+			return minValue;
 		}
 
 		/**
 		 * get the maximum of all its coefficients
 		 * return		always maximum value of all its coefficients
 		 */
+		template<typename U = T>
 		T max() const {
 			//TODO:
+			U maxValue = 0;
+
+			for(int i=0;i<this->rows();i++){
+				for(int j=0;j<this->cols();j++){
+					if(maxValue < m[i][j]){
+						maxValue = m[i][j];						
+					}
+				}
+			}
+			return maxValue;
 		}
 			
 		/**
 		 * get the sum of all its coefficients
 		 * return		always sum of all its coefficients
 		 */
-		// U sum() const {
-		// 	//TODO:
-		// }
+		template<typename U = T>
+		U sum() const {
+			//TODO:
+			U sumValue = 0;
+
+			for(int i=0;i<this->rows();i++){
+				for(int j=0;j<this->cols();j++){
+					sumValue+=m[i][j];
+				}
+			}
+			return sumValue;
+
+		}
 
 		/**
 		 * get the product of all its coefficients
 		 * return		always product of all its coefficients
 		 */
-		// U prod() const {
-		// 	//TODO:
-		// }
+		template<typename U = T>
+		U prod() const {
+		 	//TODO:
+			U prodValue = 0;
+
+			for(int i=0;i<this->rows();i++){
+				for(int j=0;j<this->cols();j++){
+					prodValue*=m[i][j];
+				}
+			}
+			return prodValue;
+		}
 
 		/**
 		 * get the mean of all its coefficients
 		 * return		always mean value of all its coefficients
 		 */
-		// U mean() const {
-		// 	//TODO:
-		// }
+		template<typename U = T>
+		U mean() const {
+			//TODO:
+			U meanValue = 0;
+			try{
+				if(this->rows()==0 || this->cols()==0)  throw -1;
+			}catch(int exception){
+				cout<<"cannot calculate (no coefficients)";
+			}
+			meanValue = this->sum()/((this->rows())*(this->cols()));
+			return meanValue;
+		}
 	};
 }
 

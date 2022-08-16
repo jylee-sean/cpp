@@ -4,13 +4,6 @@
 
 typedef float TYPE;
 
-/* 
-TODO
-기능1 A, D, Q 외 입력 안받도록 수정
-기능2 data 설정한 type으로 입력 유도
-기능3 일괄 삭제
-기능4 일괄 입력      
-*/
 
 int main()
 {
@@ -18,21 +11,25 @@ int main()
     char ch;
     TYPE data;
 
-
+    char b;
     while(1){
         cout<<"Add: A, Delete: D, Quit: Q \n";
 
         if(cin >> ch && toupper(ch) == 'Q'){
             break;
         }
-        while(cin.get() !='\n')
-            continue;
-        if(!isalpha(ch)){
-            cout<<'\a';
-            continue;
-        }
+        cout<<ch<<'\n';
+        cout<<cin.get()<<'\n';
+        
+        //cout<<ch<<'\n';
+        //while(cin.get() !='\n')
+        //     cout<<"cin get\n";
+        //     continue;
+        // if(!isalpha(ch)){
+        //     cout<<'\a';
+        //     continue;
+        // }
         switch(ch){
-
             case 'A':
             case 'a':  cout<<"input data: ";
                        cin>>data;
