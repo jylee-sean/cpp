@@ -5,50 +5,24 @@
 typedef float TYPE;
 
 
+/* 수정사항
+ * true , false 로 return 하도록  
+ */
+
 int main()
 {
     SimpleList<TYPE> slist; 
     char ch;
     TYPE data;
 
-    char b;
-    while(1){
-        cout<<"Add: A, Delete: D, Quit: Q \n";
+    for(int i=0;i<slist.getMaxSize()+2; i++){
+        slist.push(i*1.0);
+        slist.printList();
+    }
 
-        if(cin >> ch && toupper(ch) == 'Q'){
-            break;
-        }
-
-        while(cin.get() !='\n')
-            continue;
-        if(!isalpha(ch)){
-            cout<<'\a';
-            continue;
-        }
-        switch(ch){
-            case 'A':
-            case 'a':  cout<<"input data: ";
-                       cin>>data;
-                       if(slist.isFull()){
-                            cout<<"list is full\n";
-                       }
-                       else{
-                            slist.push(data);
-                            slist.printList();
-                       }
-                       break;
-            case 'D': 
-            case 'd':
-                      if(slist.isEmpty()){
-                        cout<<"list is empty\n";
-                      }else{
-                        slist.pop();
-                      }
-                      slist.printList();
-                      break;
-            
-        }
-
+    for(int i=0;i<slist.getMaxSize()+2; i++){
+        slist.pop();
+        slist.printList();
     }
 
     return 0;

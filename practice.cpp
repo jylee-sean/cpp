@@ -24,23 +24,34 @@ void Swap2(int *a, int *b)
 
 }
 
+void createArray(int num)
+{
+    int arr[num];
+
+   
+}
 
 int main()
 {
+ 
+    createArray(3);
 
-    int c = 2;
-    int d = 3;
+    //cout<<ar[0]<<"\n";
 
-    cout << "c : " << c << ", d : " << d << endl;
+    
+    // int c = 2;
+    // int d = 3;
 
-    Swap(c, d);
+    // cout << "c : " << c << ", d : " << d << endl;
 
-    cout << "c : " << c << ", d : " << d << endl;
+    // Swap(c, d);
+
+    // cout << "c : " << c << ", d : " << d << endl;
 
 
-    Swap2(&c, &d);
+    // Swap2(&c, &d);
 
-    cout << "c : " << c << ", d : " << d << endl;
+    // cout << "c : " << c << ", d : " << d << endl;
 
     return 0;
 }
