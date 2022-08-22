@@ -21,42 +21,38 @@ class SimpleList
         int getMaxSize(){
             return SIZE;
         }
-        bool push(const T& item){
-            if(top < SIZE){
-                items[top++]=item;
-                std::cout<<item<<" is pushed"<<std::endl;
-                std::cout<<"cnt:"<<top<<std::endl;
-
-                return true;
-            }
-            else{
-                std::cout<<item<<" is not pushed"<<std::endl;
-                std::cout<<"cnt:"<<top<<std::endl;
-                this->isFull();
-                return false;
-            }
-        }
-        bool pop(){
-            if(top>0){
-                items[--top];
-                std::cout<<items[top]<<" is popped"<<std::endl;
-                std::cout<<"cnt:"<<top<<std::endl;
-                return true;
-            }
-            else{ 
-                std::cout<<"can't pop"<<std::endl;
-                std::cout<<"cnt:"<<top<<std::endl;
-                this->isEmpty();
-                return false;
-            }
-        }
-
         bool isEmpty() const{
             return top == 0;
         }
         bool isFull() const{
             return top == SIZE;
         }
+
+        bool push(const T& item){
+            if(isFull()){
+                std::cout<<item<<" is not pushed"<<std::endl;
+                std::cout<<"idx:"<<top<<std::endl;
+                return false;
+            }else{
+                items[top++]=item;
+                std::cout<<item<<" is pushed"<<std::endl;
+                std::cout<<"idx:"<<top<<std::endl;
+                return true;
+            }
+        }
+        bool pop(){
+            if(isEmpty()){
+                std::cout<<"can't pop"<<std::endl;
+                std::cout<<"idx:"<<top<<std::endl;
+                return false;
+            }else{
+                items[--top];
+                std::cout<<items[top]<<" is popped"<<std::endl;
+                std::cout<<"idx:"<<top<<std::endl;
+                return true;
+            }
+        }
+
 
         void printList(){
             std::cout<<"current: ";
