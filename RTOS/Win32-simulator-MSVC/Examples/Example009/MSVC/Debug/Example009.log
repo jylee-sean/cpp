@@ -1,0 +1,188 @@
+﻿Build started 14/11/2015 21:19:45.
+Environment at start of build:
+ALLUSERSPROFILE = C:\ProgramData
+APPDATA = C:\Users\barryri\AppData\Roaming
+asl.log = Destination=file
+CARBON_MEM_DISABLE = 1
+CDSROOT = C:\devtools\OrCAD\OrCAD_16.6_Lite
+CommonProgramFiles = C:\Program Files (x86)\Common Files
+CommonProgramFiles(x86) = C:\Program Files (x86)\Common Files
+CommonProgramW6432 = C:\Program Files\Common Files
+COMPUTERNAME = RB211-2
+ComSpec = C:\Windows\system32\cmd.exe
+CONCEPT_INST_DIR = C:\devtools\OrCAD\OrCAD_16.6_Lite
+DellClientSystemUpdatePath = C:\Program Files (x86)\Dell\ClientSystemUpdate\
+Dialog_Feature_Config = C:\Dialog_Eclipse\Other\arm-none-eabi\bin;C:\DevTools\SEGGER\JLink_V498e\;C:\Dialog_Eclipse\Other\MinGW\bin;C:\Dialog_Eclipse\Other\MinGW\msys\1.0\bin;C:\Dialog_Eclipse\Other\doxygen
+ESET_OPTIONS =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+FP_NO_HOST_CHECK = NO
+HARMONY_ROOT = C:\DevTools\Microchip\harmony\v1_04_02
+HOME = C:\SPB_Data
+HOMEDRIVE = C:
+HOMEPATH = \Users\barryri
+IMPERAS_ARCH = Windows32
+IMPERAS_HOME = C:\devtools\Imperas
+IMPERAS_ISS = issdemo.exe
+IMPERAS_PERSONALITY = CPUMAN_ISS
+IMPERAS_RUNTIME = OVPsim
+IMPERAS_SHRSUF = dll
+IMPERAS_UNAME = Windows
+IMPERAS_VLNV = C:\devtools\Imperas\lib\Windows32\ImperasLib
+LOCALAPPDATA = C:\Users\barryri\AppData\Local
+LOGONSERVER = \\UK-INVINCIBLE12
+MQX_PATH = C:\devtools\Freescale\Freescale_MQX_4_1_IMX6SX
+MQX_ROOT = C:\devtools\Freescale\Freescale_MQX_4_1_IMX6SX
+NO_XILINX_DATA_LICENSE = HIDDEN
+NUMBER_OF_PROCESSORS = 4
+OS = Windows_NT
+Path = C:\Dialog_Eclipse\Other\arm-none-eabi\bin;C:\DevTools\SEGGER\JLink_V498e\;C:\Dialog_Eclipse\Other\MinGW\bin;C:\Dialog_Eclipse\Other\MinGW\msys\1.0\bin;C:\Dialog_Eclipse\Other\doxygen;C:\devtools\Python34\;C:\devtools\Python34\Scripts;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\WIDCOMM\Bluetooth Software\;C:\Program Files\WIDCOMM\Bluetooth Software\syswow64;C:\Program Files\Dell\Dell Data Protection\Access\Advanced\Wave\Gemalto\Access Client\v5\;C:\Program Files (x86)\Security Innovation\SI TSS\bin\;C:\Program Files\blat;C:\Program Files\7-Zip;C:\Program Files (x86)\Microsoft Office\Office14;C:\Program Files (x86)\Notepad++;C:\Program Files (x86)\Java\jre7\bin;C:\DevTools\unxutils\usr\local\wbin;C:\DevTools\MingW\bin;C:\DevTools\ghost-i686-elf-tools\bin;C:\Program Files (x86)\Windows Live\Shared;C:\devtools\Sourcery_CodeBench_Lite_for_ARM_EABI\bin;C:\devtools\OrCAD\OrCAD_16.6_Lite\tools\bin;C:\devtools\OrCAD\OrCAD_16.6_Lite\tools\specctra\bin;C:\devtools\OrCAD\OrCAD_16.6_Lite\tools\PSpice;C:\devtools\OrCAD\OrCAD_16.6_Lite\tools\Capture;C:\devtools\OrCAD\OrCAD_16.6_Lite\tools\fet\bin;C:\devtools\OrCAD\OrCAD_16.6_Lite\tools\pcb\bin;C:\devtools\OrCAD\OrCAD_16.6_Lite\OpenAccess\bin\win32\opt;C:\DevTools\unxutils\usr\local\wbin;c:\devtools\msys\1.0\bin;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\TortoiseSVN\bin;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\devtools\Imperas\bin\Windows32;.;
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY
+PROCESSOR_ARCHITECTURE = x86
+PROCESSOR_ARCHITEW6432 = AMD64
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 58 Stepping 9, GenuineIntel
+PROCESSOR_LEVEL = 6
+PROCESSOR_REVISION = 3a09
+ProgramData = C:\ProgramData
+ProgramFiles = C:\Program Files (x86)
+ProgramFiles(x86) = C:\Program Files (x86)
+ProgramW6432 = C:\Program Files
+PSModulePath = C:\Windows\system32\WindowsPowerShell\v1.0\Modules\
+PUBLIC = C:\Users\Public
+QUARTUS_ROOTDIR = C:\DevTools\altera\13.1\qprogrammer
+SESSIONNAME = Console
+SOCEDS_DEST_ROOT = C:\DevTools\altera\14.0\embedded
+SystemDrive = C:
+SystemRoot = C:\Windows
+TEMP = C:\Users\barryri\AppData\Local\Temp
+TMP = C:\Users\barryri\AppData\Local\Temp
+TSK_OPTIONS_FILE_SW103800 = C:\devtools\TASKING\carm v5.0r1\etc\licopt.txt
+USERDNSDOMAIN = WITTAG.NET
+USERDOMAIN = WITTAG
+USERNAME = barryri
+USERPROFILE = C:\Users\barryri
+VBOX_MSI_INSTALL_PATH = C:\devtools\Oracle\VirtualBox\
+VisualStudioDir = C:\Users\barryri\Documents\Visual Studio 2010
+VS100COMNTOOLS = c:\devtools\Visual Studio Express 10.0\Common7\Tools\
+VS140COMNTOOLS = C:\devtools\Microsoft Visual Studio 14.0\Common7\Tools\
+windir = C:\Windows
+windows_tracing_flags = 3
+windows_tracing_logfile = C:\BVTBin\Tests\installpackage\csilogfile.log
+
+21:19:45.518     1>Project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" on node 2 (clean target(s)).
+21:19:45.518     1>Building with tools version "4.0".
+21:19:45.518     1>Target "_CheckForInvalidConfigurationAndPlatform: (TargetId:122)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (entry point):
+                   Task "Error" skipped, due to false condition; ( '$(_InvalidConfigurationError)' == 'true' ) was evaluated as ( '' == 'true' ).
+                   Task "Warning" skipped, due to false condition; ( '$(_InvalidConfigurationWarning)' == 'true' ) was evaluated as ( '' == 'true' ).
+                   Task "Message" (TaskId:122)
+                     Configuration=Debug (TaskId:122)
+                   Done executing task "Message". (TaskId:122)
+                   Task "Message" (TaskId:123)
+                     Platform=Win32 (TaskId:123)
+                   Done executing task "Message". (TaskId:123)
+                   Task "Error" skipped, due to false condition; ('$(OutDir)' != '' and !HasTrailingSlash('$(OutDir)')) was evaluated as ('R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Debug\' != '' and !HasTrailingSlash('R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Debug\')).
+                   Task "Error" skipped, due to false condition; ('$(BaseIntermediateOutputPath)' != '' and !HasTrailingSlash('$(BaseIntermediateOutputPath)')) was evaluated as ('obj\' != '' and !HasTrailingSlash('obj\')).
+                   Task "Error" skipped, due to false condition; ('$(IntermediateOutputPath)' != '' and !HasTrailingSlash('$(IntermediateOutputPath)')) was evaluated as ('Debug\' != '' and !HasTrailingSlash('Debug\')).
+21:19:45.518     1>Done building target "_CheckForInvalidConfigurationAndPlatform" in project "Example009.vcxproj".: (TargetId:122)
+21:19:45.518     1>Target "_PrepareForClean: (TargetId:123)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.BuildSteps.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "Clean" depends on it):
+                   Task "Delete" skipped, due to false condition; (Exists($(LastBuildState))) was evaluated as (Exists(Debug\Example009.lastbuildstate)).
+21:19:45.518     1>Done building target "_PrepareForClean" in project "Example009.vcxproj".: (TargetId:123)
+21:19:45.518     1>Target "BeforeClean: (TargetId:124)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "Clean" depends on it):
+21:19:45.518     1>Done building target "BeforeClean" in project "Example009.vcxproj".: (TargetId:124)
+                   Target "UnmanagedUnregistration" skipped, due to false condition; ((('$(_AssemblyTimestampBeforeCompile)' != '$(_AssemblyTimestampAfterCompile)' or '$(RegisterForComInterop)' != 'true' or '$(OutputType)' != 'library') or
+                                       ('$(_AssemblyTimestampBeforeCompile)' == '')) and
+                                      Exists('@(_UnmanagedRegistrationCache)')) was evaluated as ((('' != '' or '' != 'true' or 'exe' != 'library') or
+                                       ('' == '')) and
+                                      Exists('obj\Example009.vcxproj.UnmanagedRegistration.cache')).
+21:19:45.518     1>Target "CoreClean: (TargetId:125)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "Clean" depends on it):
+                   Task "Delete" (TaskId:124)
+                   Done executing task "Delete". (TaskId:124)
+                   Task "ReadLinesFromFile" (TaskId:125)
+                   Done executing task "ReadLinesFromFile". (TaskId:125)
+                   Task "FindUnderPath" (TaskId:126)
+                     Comparison path is "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Debug\". (TaskId:126)
+                   Done executing task "FindUnderPath". (TaskId:126)
+                   Task "FindUnderPath" (TaskId:127)
+                     Comparison path is "Debug\". (TaskId:127)
+                   Done executing task "FindUnderPath". (TaskId:127)
+                   Task "Delete" (TaskId:128)
+                   Done executing task "Delete". (TaskId:128)
+                   Task "RemoveDuplicates" (TaskId:129)
+                   Done executing task "RemoveDuplicates". (TaskId:129)
+                   Task "MakeDir" (TaskId:130)
+                   Done executing task "MakeDir". (TaskId:130)
+                   Task "WriteLinesToFile" (TaskId:131)
+                   Done executing task "WriteLinesToFile". (TaskId:131)
+21:19:45.518     1>Done building target "CoreClean" in project "Example009.vcxproj".: (TargetId:125)
+21:19:45.518     1>Target "AssignProjectConfiguration: (TargetId:126)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "CleanReferencedProjects" depends on it):
+                   Task "AssignProjectConfiguration" (TaskId:132)
+                   Done executing task "AssignProjectConfiguration". (TaskId:132)
+21:19:45.518     1>Done building target "AssignProjectConfiguration" in project "Example009.vcxproj".: (TargetId:126)
+21:19:45.518     1>Target "_SplitProjectReferencesByFileExistence: (TargetId:127)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "CleanReferencedProjects" depends on it):
+                   Task "ResolveNonMSBuildProjectOutput" skipped, due to false condition; ('$(BuildingInsideVisualStudio)'=='true' and '@(ProjectReferenceWithConfiguration)'!='') was evaluated as ('true'=='true' and ''!='').
+21:19:45.518     1>Done building target "_SplitProjectReferencesByFileExistence" in project "Example009.vcxproj".: (TargetId:127)
+21:19:45.518     1>Target "CleanReferencedProjects: (TargetId:128)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "Clean" depends on it):
+                   Task "MSBuild" skipped, due to false condition; ('$(BuildingInsideVisualStudio)' != 'true' and '$(BuildProjectReferences)' == 'true' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('true' != 'true' and 'true' == 'true' and '' != '').
+21:19:45.518     1>Done building target "CleanReferencedProjects" in project "Example009.vcxproj".: (TargetId:128)
+21:19:45.518     1>Target "CleanPublishFolder: (TargetId:129)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "Clean" depends on it):
+                   Task "RemoveDir" skipped, due to false condition; ('$(PublishDir)'=='$(OutputPath)app.publish\' and Exists('$(PublishDir)')) was evaluated as ('R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Debug\app.publish\'=='R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Debug\app.publish\' and Exists('R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Debug\app.publish\')).
+21:19:45.518     1>Done building target "CleanPublishFolder" in project "Example009.vcxproj".: (TargetId:129)
+21:19:45.518     1>Target "AfterClean: (TargetId:130)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "Clean" depends on it):
+21:19:45.518     1>Done building target "AfterClean" in project "Example009.vcxproj".: (TargetId:130)
+                   Target "EntityClean" skipped, due to false condition; ('@(EntityDeploy)' != '') was evaluated as ('' != '').
+21:19:45.518     1>Target "BeforeCppClean: (TargetId:131)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppClean.targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "CppClean" depends on it):
+21:19:45.518     1>Done building target "BeforeCppClean" in project "Example009.vcxproj".: (TargetId:131)
+21:19:45.518     1>Target "CoreCppClean: (TargetId:132)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppClean.targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "CppClean" depends on it):
+                   Task "MakeDir" (TaskId:133)
+                   Done executing task "MakeDir". (TaskId:133)
+                   Using "CppClean" task from assembly "Microsoft.Build.CppTasks.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
+                   Task "CppClean" (TaskId:134)
+                   Done executing task "CppClean". (TaskId:134)
+                   Task "WriteLinesToFile" (TaskId:135)
+                   Done executing task "WriteLinesToFile". (TaskId:135)
+21:19:45.518     1>Done building target "CoreCppClean" in project "Example009.vcxproj".: (TargetId:132)
+21:19:45.518     1>Target "AfterCppClean: (TargetId:133)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppClean.targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "CppClean" depends on it):
+21:19:45.518     1>Done building target "AfterCppClean" in project "Example009.vcxproj".: (TargetId:133)
+21:19:45.518     1>Target "PGInstrumentedClean: (TargetId:134)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppClean.targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "CppClean" depends on it):
+                   Task "Delete" (TaskId:136)
+                   Done executing task "Delete". (TaskId:136)
+21:19:45.518     1>Done building target "PGInstrumentedClean" in project "Example009.vcxproj".: (TargetId:134)
+21:19:45.518     1>Target "CppClean: (TargetId:135)" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppClean.targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (target "Clean" depends on it):
+21:19:45.518     1>Done building target "CppClean" in project "Example009.vcxproj".: (TargetId:135)
+21:19:45.518     1>Target "Clean: (TargetId:136)" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (entry point):
+21:19:45.518     1>Done building target "Clean" in project "Example009.vcxproj".: (TargetId:136)
+21:19:45.518     1>Done Building Project "R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj" (clean target(s)).
+
+Project Performance Summary:
+        0 ms  R:\FreeRTOS\Projects\191-ApplicationNotesAndBook\Source-Code-For-Examples\WorkingCopy\Win32-simulator-MSVC\Examples\Example009\MSVC\Example009.vcxproj   1 calls
+                  0 ms  clean                                      1 calls
+
+Target Performance Summary:
+        0 ms  _SplitProjectReferencesByFileExistence     1 calls
+        0 ms  BeforeCppClean                             1 calls
+        0 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
+        0 ms  CoreCppClean                               1 calls
+        0 ms  CppClean                                   1 calls
+        0 ms  CleanPublishFolder                         1 calls
+        0 ms  CleanReferencedProjects                    1 calls
+        0 ms  Clean                                      1 calls
+        0 ms  _PrepareForClean                           1 calls
+        0 ms  CoreClean                                  1 calls
+        0 ms  AfterClean                                 1 calls
+        0 ms  PGInstrumentedClean                        1 calls
+        0 ms  AssignProjectConfiguration                 1 calls
+        0 ms  AfterCppClean                              1 calls
+        0 ms  BeforeClean                                1 calls
+
+Task Performance Summary:
+        0 ms  Delete                                     3 calls
+        0 ms  MakeDir                                    2 calls
+        0 ms  CppClean                                   1 calls
+        0 ms  WriteLinesToFile                           2 calls
+        0 ms  RemoveDuplicates                           1 calls
+        0 ms  ReadLinesFromFile                          1 calls
+        0 ms  Message                                    2 calls
+        0 ms  FindUnderPath                              2 calls
+        0 ms  AssignProjectConfiguration                 1 calls
+
+Build succeeded.
+
+Time Elapsed 00:00:00.01
