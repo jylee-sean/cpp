@@ -63,12 +63,6 @@ namespace phy
 				int cnt=0;
 				m = new (buf) T[row*col];
 
-				for(int i=0;i<row; ++i){
-					for(int j=0; j<col; ++j){
-						m[i*col+j]=cnt++;
-					}
-				}
-
 			}
 
 
