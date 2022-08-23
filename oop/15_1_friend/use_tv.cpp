@@ -1,6 +1,7 @@
 #include <iostream>
 #include "tv.h"
 
+
 int main()
 {
     using std::cout;
@@ -22,6 +23,8 @@ int main()
     grey.set_chan(s42, 10);
     grey.volup(s42);
     s42.settings();
+
+    
     return 0;
 
 }
