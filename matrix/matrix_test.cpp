@@ -4,14 +4,16 @@ using namespace std;
 int main()
 {
 
-    phy::matrix<float> mat2x2(2,2);
-    cout<<"2x2 matrix\n";
-    mat2x2.mprint();
 
 
     phy::matrix<float> mat3x2(3,2);
     cout<<"3x2 matrix\n";
     mat3x2.mprint();
+
+    phy::matrix<float> mat2x2(2,2);
+    cout<<"2x2 matrix\n";
+    mat2x2.mprint();
+
 
     phy::matrix<float> mat1x4(1,4);
     cout<<"1x4 matrix\n";
@@ -22,15 +24,15 @@ int main()
     mat4x4.mprint();
 
 
-    //phy::matrix<float> mat11x12(11,12);
+    phy::matrix<float> mat11x12(11,12);
     cout<<"11x12 matrix\n";
-    //mat11x12.mprint();
+    mat11x12.mprint();
 
-    // /*identity*/
+    /*identity*/
     phy::matrix<float> mat2x2identity(2,2);
 
     cout<<"identity\n";
-    mat2x2identity = mat2x2.identity(2,2);    
+    mat2x2identity = phy::matrix<float>::identity(2,2);    
     mat2x2identity.mprint();
 
     /*transpose*/

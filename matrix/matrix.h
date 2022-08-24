@@ -26,10 +26,11 @@
  * 4. placement new 로 메모리 할당 (1차원 array 사용, 사이즈 불만족시 예외처리) --완료 
  * 5. try catch 문 코드 수정: exception 을 class 로 -- ?
  * 6. (LINE#296) operator/ 함수 리턴이 예외상황일 경우 무엇을 리턴할지 -- ? 
- * 7. 배열 초기화 로직 삭제 -- 완료, but 2x2 배열 생성시 초기값 0  
- * 8. (LINE#117) 왜 identity 함수만 static 인지 --
+ * 7. 배열 초기화 로직 삭제 -- 완료
+ * 8. (LINE#117) 왜 identity 함수만 static 인지 -- 완료(instance화 하지 않고 call하려는 목적/테스트 코드(LINE#35)에 반영
  * 9. using namespace std 삭제 -- 완료
- * 10. (LINE#49) using value_type = T 의미  
+ * 10. (LINE#49) using value_type = T 의미 -- 완료(stl 컨테이너 기본 멤버)
+ * 11. (LINE#394) prod 버그 수정 -- 완료
  */
 namespace phy
 {
@@ -390,7 +391,7 @@ namespace phy
 			 */
 			template<typename U = T>
 			U prod() const {
-				U prodValue = 0;
+				U prodValue = 1;
 
 				for(int i=0;i<ROWxCOL;i++){
 					prodValue*=m[i];

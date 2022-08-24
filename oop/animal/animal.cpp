@@ -1,10 +1,10 @@
 #include "animal.h"
 
 
-
-void cryout(Animal *pA)
+template<typename T>
+void cryout(T *pA)  // void cryout(Animal *pA)
 {
-    pA->cry();
+    dynamic_cast<Animal*>(pA)->cry();
 }
 
 int main()

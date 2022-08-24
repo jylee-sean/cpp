@@ -6,7 +6,8 @@ typedef float TYPE;
 
 
 /* 수정사항
- * true , false 로 return 하도록 -완료
+ * true , false 로 return 하도록 - 완료
+ * unit test 방법 - 
  */
 
 int main()
