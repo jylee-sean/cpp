@@ -12,7 +12,7 @@ int main()
     dom.ViewAcct();
     dot.ViewAcct();
 
-
+    return 0;
 }
 
 

@@ -5,6 +5,13 @@
 
 using std::cout;
 using std::endl;
+using std::string;
+
+/* regarding formatting */
+typedef std::ios_base::fmtflags format;
+typedef std::streamsize precis:
+format setForamt();
+void restore(format f, precis p);
 
 class Brass
 {
@@ -27,11 +34,31 @@ Brass::Brass(const std::string &s, long an, double bal)
     accNum = an;
     balance = bal;
 }
-
+void Brass::Deposit(double amt)
+{
+    if(amt <0){
+        cout<<"마이너스 입금 허용 안됨"<<endl;
+    }else{
+        balance +=amt;
+    }
+}
 
 void Brass::Withdraw(double amt)
 {
     cout<<"brass with draw"<<endl;
+
+    format initialState = setFormat();
+    precis prec = cout.precision(2);
+
+    if(amt <0){
+        cout<<"마이너스 입금 허용 안됨"<<endl;
+    }else if (amt <= balance){
+        balance-=amt;
+    }else{
+        cout<<"잔액 초과"<<endl;
+    }
+
+    restore(initialState, prec);
 }
 
 void Brass::ViewAcct() const
