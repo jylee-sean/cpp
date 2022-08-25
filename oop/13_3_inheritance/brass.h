@@ -9,8 +9,8 @@ using std::string;
 
 /* regarding formatting */
 typedef std::ios_base::fmtflags format;
-typedef std::streamsize precis:
-format setForamt();
+typedef std::streamsize precis;
+format setFormat();
 void restore(format f, precis p);
 
 class Brass
@@ -22,9 +22,9 @@ class Brass
 
     public:
         Brass(const std::string &s="Nullbody",long an = -1, double bal =0.0);
-        void Deposit(double amt){}
+        void Deposit(double amt);
         virtual void Withdraw(double amt);
-        double Balance() const {}
+        double Balance() const ;
         virtual void ViewAcct() const;
         virtual ~Brass(){} /* 파생 클래스 객체가 소멸할 때, 소멸자들이 올바른 순서로 호출되도록 해 줌*/
 };
@@ -45,8 +45,6 @@ void Brass::Deposit(double amt)
 
 void Brass::Withdraw(double amt)
 {
-    cout<<"brass with draw"<<endl;
-
     format initialState = setFormat();
     precis prec = cout.precision(2);
 
@@ -60,10 +58,21 @@ void Brass::Withdraw(double amt)
 
     restore(initialState, prec);
 }
+double Brass::Balance() const
+{
+    return balance;
+}
 
 void Brass::ViewAcct() const
 {
-    cout<<"brass view acct"<<endl;
+    format initialState = setFormat();
+    precis prec = cout.precision(2);
+    
+    cout<<"name:"<<fullName <<endl;
+    cout<<"Account Number:"<<accNum <<endl;
+    cout<<"Current Balance:"<<balance <<endl;
+
+    restore(initialState,prec);
 }
 
 class BrassPlus : public Brass
@@ -78,8 +87,8 @@ class BrassPlus : public Brass
         BrassPlus(const Brass &ba, 
                   double ml = 500, double r =0.11125);
 
-        virtual void ViewAcct() const;
-        virtual void Withdraw(double amt);
+        /*virtual*/ void ViewAcct() const;
+        /*virtual*/ void Withdraw(double amt);
         void ResetMax(double m){maxLoan = m;}
         void ResetRate(double r){rate =r;}
         void ResetOwes(){owesBank=0;}
@@ -92,16 +101,55 @@ BrassPlus::BrassPlus(const std::string &s, long an, double bal, double ml, doubl
     owesBank = 0.0;
     rate = r;
 }
+
 void BrassPlus::ViewAcct() const
 {
-    cout<<"brass plus view acct"<<endl;
-}
+    format initialState = setFormat();
+    precis prec = cout.precision(2);
 
+    Brass::ViewAcct();
+    cout<<"maxLoan:"<<maxLoan <<endl;
+    cout<<"owesBank:"<<owesBank<<endl;
+    cout.precision(3);
+    cout<<"Rate:"<<100*rate <<"%"<<endl;
+
+    restore(initialState,prec);
+}
 
 void BrassPlus::Withdraw(double amt)
 {
-    cout<<"brass plus with draw"<<endl;
+    format initialState = setFormat();
+    precis prec = cout.precision(2);
+
+    double bal = Balance();
+    if(amt<=bal){
+        Brass::Withdraw(amt);
+    }else if(amt<=bal+maxLoan-owesBank){
+        double advance = amt-bal;
+        owesBank +=advance *(1.0+rate);
+        cout<<"advance: "<<advance<<endl;
+        cout<<"interset:"<<advance*rate <<endl;
+        Deposit(advance);
+        Brass::Withdraw(amt);
+    }else{
+        cout<<"canceled"<<endl;
+    }
+
+    restore(initialState,prec);
 }
+
+format setFormat()
+{
+    return cout.setf(std::ios_base::fixed, std::ios_base::floatfield);
+}
+
+void restore(format f, precis p)
+{
+    cout.setf(f,std::ios_base::floatfield);
+    cout.precision(p);
+}
+
+
 
 
 #endif

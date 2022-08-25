@@ -65,6 +65,11 @@ namespace phy
 				int cnt=0;
 				m = new (buf) T[row*col];
 
+
+				for(int i=0; i<ROWxCOL;i++){
+					m[i]=++cnt;
+				}				
+
 			}
 
 
@@ -343,7 +348,8 @@ namespace phy
 			U min() const {
 				/* exception (no coefficient) neccesary */
 
-				U minValue = m[0];
+				//U minValue = m[0];
+				U minValue = std::numeric_limits<U>::max();
 
 				for(int i=0;i<ROWxCOL;i++){
 					if(minValue > m[i]){
@@ -361,8 +367,9 @@ namespace phy
 			U max() const {
 				/* exception (no coefficient) neccesary */
 
-				U maxValue = m[0];
+				//U maxValue = m[0];
 
+				U maxValue = std::numeric_limits<U>::min();
 				for(int i=0;i<ROWxCOL;i++){
 					if(maxValue < m[i]){
 						maxValue = m[i];						

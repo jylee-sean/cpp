@@ -24,9 +24,9 @@ int main()
     mat4x4.mprint();
 
 
-    phy::matrix<float> mat11x12(11,12);
-    cout<<"11x12 matrix\n";
-    mat11x12.mprint();
+    // phy::matrix<float> mat11x12(11,12);
+    // cout<<"11x12 matrix\n";
+    // mat11x12.mprint();
 
     /*identity*/
     phy::matrix<float> mat2x2identity(2,2);
