@@ -31,7 +31,7 @@
  * 9. using namespace std 삭제 -- 완료
  * 10. (LINE#49) using value_type = T 의미 -- 완료(stl 컨테이너 기본 멤버)
  * 11. (LINE#394) prod 버그 수정 -- 완료
- * 12. Min, Max 함수 m[0] primitive value 로 초기화 --
+ * 12. Min, Max 함수 m[0] primitive value 로 초기화 -- 완료
  */
 namespace phy
 {
@@ -103,7 +103,7 @@ namespace phy
 
 			inline bool isSameSize(std::size_t r, std::size_t c) const {
 				
-				if((ROW != r) ||  (COL != c) ){
+				if((ROW == r) &&  (COL == c) ){
 					return true;
 				}else{
 					std::cout<<"cannot prooceed operation (size is differenct)";

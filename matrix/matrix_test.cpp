@@ -50,13 +50,19 @@ int main()
     cout<<"mean:"<<mat2x2.mean()<<"\n";
 
     /*compare*/
-    cout<<boolalpha<<"result:"<<mat2x2.operator==(mat2x2trans)<<"\n";
-    cout<<boolalpha<<"result:"<<mat2x2.operator==(mat2x2)<<"\n";
-    cout<<boolalpha<<"result:"<<mat2x2.operator!=(mat2x2trans)<<"\n";
-    cout<<boolalpha<<"result:"<<mat2x2.operator!=(mat2x2)<<"\n";
+    bool result;
+    result = (mat2x2==mat2x2trans);
+    cout<<boolalpha<<"result:"<<result<<"\n";
+    result = (mat2x2==mat2x2);
+    cout<<boolalpha<<"result:"<<result<<"\n";
+    result = (mat2x2!=mat2x2trans);
+    cout<<boolalpha<<"result:"<<result<<"\n";
+    result = (mat2x2!=mat2x2);
+    cout<<boolalpha<<"result:"<<result<<"\n";
 
     phy::matrix<float> mat3x3(3,3);
-    cout<<boolalpha<<"result:"<<mat2x2.operator==(mat3x3)<<"\n";
+    result = (mat2x2==mat3x3);
+    cout<<boolalpha<<"result:"<<result<<"\n";
 
 
     /* basic operation: [+ ,- ,* ,/] */
