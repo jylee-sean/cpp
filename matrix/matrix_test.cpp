@@ -68,53 +68,54 @@ int main()
     /* basic operation: [+ ,- ,* ,/] */
     phy::matrix<float> mat2x2op(2,2);
        
-    mat2x2op = mat2x2.operator+(mat2x2trans);
+    mat2x2op = mat2x2+(mat2x2trans);
     cout<<"[ + op]\n";
     mat2x2op.mprint();
 
-    mat2x2op = mat2x2.operator-(mat2x2identity);
+    mat2x2op = mat2x2-(mat2x2identity);
     cout<<"[ - op]\n";
     mat2x2op.mprint();
 
     float scalar = 5.0;
-    mat2x2op = mat2x2.operator*(scalar);
+    mat2x2op = mat2x2*(scalar);
     cout<<"[ * op(scalar)]\n";
     mat2x2op.mprint();
 
-    mat2x2op = mat2x2op.operator/(scalar);
+    mat2x2op = mat2x2op/(scalar);
     cout<<"[ / op(scalar)]\n";
     mat2x2op.mprint();
     
     /*dived by zero*/
-    mat2x2op = mat2x2op.operator/(0.0);
+    mat2x2op = mat2x2op/(0.0);
     cout<<"[ / op(scalar)]\n";
     
     /*matrix multiplication*/
     phy::matrix<float> mat2x2mul(2,2);
     cout<<"matrix multiplication\n";
     
-    mat2x2mul = mat2x2.operator*(mat3x3);
+    mat2x2mul = mat2x2*(mat3x3);
 
 
-    mat2x2mul = mat2x2.operator*(mat2x2);
+    mat2x2mul = mat2x2*(mat2x2);
     mat2x2mul.mprint();
 
 
 
     phy::matrix<int> mat2x2ref(2,2);
 
-    auto x2d = mat2x2ref.operator()(1,0);
+    //auto x2d = mat2x2ref.operator()(1,0);
+    auto x2d = mat2x2ref(1,0);
     cout<<x2d<<endl;
 
-    auto x1d = mat2x2ref.operator()(3);
+    auto x1d = mat2x2ref(3);
     cout<<x1d<<endl;
 
     const phy::matrix<int> constmat2x2ref(2,2);
 
-    auto y2d = constmat2x2ref.operator()(1,1);
+    auto y2d = constmat2x2ref(1,1);
     cout<<y2d<<endl;
 
-    auto y1d = constmat2x2ref.operator()(1);
+    auto y1d = constmat2x2ref(1);
     cout<<y1d<<endl;
 
     

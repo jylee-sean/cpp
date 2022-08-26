@@ -163,6 +163,8 @@ namespace phy
 			 */
 			T& operator()(const std::size_t i) {
 				//TODO:
+
+				std::cout<<"operator () type1 called"<<std::endl;
 				int row = (int)i/COL;
 				int col = i%COL;
 				return m[row*COL+ col];	
@@ -191,6 +193,8 @@ namespace phy
 			 */
 			T& operator()(std::size_t row, std::size_t col) {
 				//TODO:
+				std::cout<<"operator () type2 called"<<std::endl;
+
 				return m[row*COL+col];	
 			}
 
