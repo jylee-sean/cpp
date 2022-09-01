@@ -19,7 +19,7 @@
 
 #include <stdexcept>
 
-/** (수정내용) 검토필요 항목: 5, 6, 7, 8, 10 
+/** (수정내용) 검토필요 항목: 5, 6
  * 1. min max return type  변경  -- 완료
  * 2. (LINE#355, #374)min max 로직 수정  -- 완료 
  * 3. initialization 시 type option 제거 -- 완료
@@ -328,7 +328,7 @@ namespace phy
 
 					matrix<T> tmp(ROW,rhsCOL);
 					
-					for(int i=0; i<ROW; i++){
+					for(int i=0; i<ROW ; i++){
 						for(int j=0; j<rhsCOL; j++){
 							tmp.m[i*rhsCOL+j]=0;
 							for(int k=0; k<COL; k++){

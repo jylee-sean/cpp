@@ -291,7 +291,7 @@ static void matrix_multiplication_strassen(float* matA, float* matB, float* resu
 
 
 
-static void mm_test(int M, int N, int K, int size_limit, int max_value, int iteration){
+static int mm_test(int M, int N, int K, int size_limit, int max_value, int iteration){
     unsigned seed = time(0);
     srand(seed);
     clock_t start,end;
@@ -324,7 +324,7 @@ static void mm_test(int M, int N, int K, int size_limit, int max_value, int iter
         
 		start = clock();
 
-		cout<< "M:" <<M<<"  N:"<<N<<"  K:"<<K <<endl;
+		//cout<< "M:" <<M<<"  N:"<<N<<"  K:"<<K <<endl;
         matrix_multiplication_strassen(mA, mB, result_strasson, M, N, K);
         end = clock();
         double endtime = (double) (end-start)/CLOCKS_PER_SEC;
@@ -338,10 +338,10 @@ static void mm_test(int M, int N, int K, int size_limit, int max_value, int iter
 		//cout<<"Normal:" <<i<<"  time"<<endtime*1000<<" ms"<<endl;
 
 		if(strsn < endtime){
-			cout<<"strassen win "<<strsn<<" ms"<<endtime<<" ms"<<endl;
+			//cout<<"strassen win "<<strsn*1000<<" ms"<<endtime*1000<<" ms"<<endl;
 			cnt++;
 		}else{
-			cout<<"strassen lose "<<strsn<<" ms"<<endtime<<" ms"<<endl;
+			//cout<<"strassen lose "<<strsn*1000<<" ms"<<endtime*1000<<" ms"<<endl;
 		}
 
 
@@ -359,14 +359,17 @@ static void mm_test(int M, int N, int K, int size_limit, int max_value, int iter
         // }
         // cout<<" "<<endl;
     }
-	cout<<"counts of Strasson algorithm's win:"<<cnt<<endl;
+	cout<<"counts of Strasson algorithm's win:"<<size_limit<<": "<<cnt<<endl;
 }
 
 int main(){;
     int M, N, K, size_limit,max_value, iteration;
 	iteration = 100;
-    max_value = 2000;
-	size_limit =800;
-    mm_test(M, N, K,size_limit, max_value, iteration);
-    return 0;
+    max_value = 100;
+	int cnt_arr[20];
+	int i=0;
+	for(int size_limit=100;size_limit<1001;size_limit+=50){
+    	cnt_arr[i++]=mm_test(M, N, K,size_limit, max_value, iteration);
+	}
+	return 0;
 }
