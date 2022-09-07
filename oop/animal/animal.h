@@ -15,28 +15,26 @@
 class Animal
 {
     public:
-        virtual void cry()=0;
+        //virtual void cry()=0;
+        void cry(){
+            std::cout<<"animal"<<std::endl;
+        }
 };
 
 
 
-class Dog : public Animal
+class Dog : private Animal
 {
-    private:
-        void bark(){std::cout<<"bark"<<std::endl;}
-
     public:
-        void cry(){ bark();}
+        void cry(){ std::cout<<"bark"<<std::endl;}
     
 };
 
 
 class Cat : public Animal
 {
-    private:
-        void meow(){std::cout<<"meow"<<std::endl;}
     public:
-        void cry(){ meow();}
+        void cry(){std::cout<<"meow"<<std::endl;}
     
 };
 
