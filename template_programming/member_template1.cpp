@@ -36,6 +36,6 @@ int main()
 	obj1.mf2(3);
 	obj2.mf2(3.4);
 
-	obj1.mf3(3);
+	obj1.mf3<double>(3);
 	obj1.mf3(3.4);
 }

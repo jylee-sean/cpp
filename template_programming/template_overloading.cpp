@@ -18,6 +18,6 @@ int main()
 	square(3);   // int
 	square(3.4); // T
 
-	square<int>(3); 
-	square<>(3); 
+	square<int>(3); // T
+	square<>(3);    // T
 }

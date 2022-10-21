@@ -5,54 +5,32 @@
 
 using namespace std;
 
-
-void Swap(int &a, int &b)
+void foo(int &a)
 {
-    int tmp;
-    tmp = a;
-    a= b;
-    b = tmp;
-
+    cout<<a<<endl;
+    a=3;
+//    cout<<a<<endl;
 }
 
-void Swap2(int *a, int *b)
+
+void foo2(int &&a)
 {
-    int tmp;
-    tmp = *a;
-    *a= *b;
-    *b = tmp;
+    cout<<a<<endl;
 
-}
+    
 
-void createArray(int num)
-{
-    int arr[num];
-
-   
 }
 
 int main()
 {
- 
-    createArray(3);
 
-    //cout<<ar[0]<<"\n";
-
+    int b =5;
+    //foo(b);
+    //cout<<b<<endl;
     
-    // int c = 2;
-    // int d = 3;
-
-    // cout << "c : " << c << ", d : " << d << endl;
-
-    // Swap(c, d);
-
-    // cout << "c : " << c << ", d : " << d << endl;
-
-
-    // Swap2(&c, &d);
-
-    // cout << "c : " << c << ", d : " << d << endl;
+    foo2(5);
 
     return 0;
+
 }
 

@@ -42,10 +42,26 @@
 
 
 
+// template<typename T1, typename T2>
+// //decltype(a + b) add(const T1& a, const T2& b)   //에러 : 선언되지 않은 식별자(a, b 선언 전에 표기)
+// //auto add(const T1& a, const T2& b) -> decltype(a + b) // C++11 (후위 반환 타입 문법)
+
+// auto add(const T1& a, const T2& b)  // C++14
+// {
+// 	return a + b;
+// }
+
+// int main()
+// {
+// 	std::cout << add(3, 4.3) << std::endl;
+// }
+
+
+//#include <iostream>
+#include <type_traits>
+
 template<typename T1, typename T2>
-//decltype(a + b) add(const T1& a, const T2& b)
-//auto add(const T1& a, const T2& b) -> decltype(a + b) // C++11
-auto add(const T1& a, const T2& b)  // C++14
+typename std::common_type<T1, T2>::type  add(const T1& a, const T2& b)  
 {
 	return a + b;
 }
@@ -54,3 +70,19 @@ int main()
 {
 	std::cout << add(3, 4.3) << std::endl;
 }
+
+// C++20: tempalte 인지 파악하기 어려움
+// #include <iostream>
+// #include <type_traits>
+
+// auto add(const auto& a, const auto& b)  
+// {
+// 	return a + b;
+// }
+
+// int main()
+// {
+// 	std::cout << add(3, 4.3) << std::endl;
+// }
+
+

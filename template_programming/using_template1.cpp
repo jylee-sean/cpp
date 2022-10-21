@@ -7,6 +7,11 @@
 // using SET = std::unordered_set<int>;
 
 
+// c++11 부터 typedef 대신 using 사용
+// 타입 별칭 (alias) 만드는 방법
+// 1. c style : typedef std::unordered_set<int> SET;
+// 2. c++ style : using SET = std::unordered_set<int>;
+
 template<typename T> 
 using SET = std::unordered_set<T>;
 

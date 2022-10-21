@@ -21,7 +21,7 @@ public:
 	T& operator[](std::size_t idx) { return ptr[idx];}
 	
 	Vector(const Vector&) = delete;
-//	Vector(const Vector<T>&) = delete;
+//	Vector(const Vector<T>&) = delete;  // 이게 맞지만, 멤버함수안에서는 위처럼 <T> 를 빼도 됨
 };
 
 //void fn(const Vector& v) {} // error
