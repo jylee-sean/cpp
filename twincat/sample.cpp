@@ -34,33 +34,65 @@ bool (*fparr[3])(void) = {f1, f2, f3};
 
 int main(void)
 {
-    std::cout<<"bool:"<<sizeof(bool)<<std::endl;
-    std::cout<<"int:"<<sizeof(int)<<std::endl;
-    std::cout<<"double:"<<sizeof(double)<<std::endl;
-    std::cout<<"size_t:"<<sizeof(size_t)<<std::endl;
+    //std::cout<<"bool:"<<sizeof(bool)<<std::endl;
+    //std::cout<<"int:"<<sizeof(int)<<std::endl;
+    //std::cout<<"double:"<<sizeof(double)<<std::endl;
+    //std::cout<<"size_t:"<<sizeof(size_t)<<std::endl;
 
-    std::cout<<sizeof(fparr)<<std::endl;
+    //std::cout<<sizeof(fparr)<<std::endl;
 
     //for(int i=0; i<3; ++i){
+
+    int *a;
+
+    int *c, *d;
+    int *b[2] = {c,d};
+
+    a = (*b);
+
+    a = ++(*b);
     int cnt = 0;
 
-    bool (*fp)(void);
+    bool (**fp)(void);
 
-    fp = &fparr[0];
+    //fp = (*fparr);
+
+    fp = fparr;
+
+
+    std::cout<<fparr<<std::endl;
+    std::cout<<reinterpret_cast<void *>(*fparr)<<std::endl;
+    std::cout<<reinterpret_cast<bool *>(&f1)<<std::endl;
+    std::cout<<reinterpret_cast<bool *>(*fp)<<std::endl;
+
+    std::cout<<reinterpret_cast<void *>(*(fparr+1))<<std::endl;
+    std::cout<<reinterpret_cast<bool *>(&f2)<<std::endl;
+
+    //*fp = *(fp+1);
+    std::cout<<reinterpret_cast<bool *>(*fp)<<std::endl;
+
+    //std::cout<<fp<<std::endl;
+    
     while(1)
     {
-        fp();
 
-        fp=&fparr+sizeof(fparr[0]);
-        std::cout<<"size:"<<sizeof(fparr[i])<<std::endl;
+        //cout<<cnt<<endl;
+        (*fp)();
+
+        *fp = *(fp+1);
+        
+        
+        
+        
+        //std::cout<<"size:"<<sizeof(fparr)/sizeof(*fparr)<<std::endl;
     
 
-
-
         cnt+=1;
-        if(cnt==2){
+        if(cnt==sizeof(fparr)/sizeof(*fparr)){
             break;
         }
+        
+        
     };
 
 
