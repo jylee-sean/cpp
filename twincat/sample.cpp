@@ -28,8 +28,26 @@ bool f3()
     return true;
 }
 
+bool f4()
+{
+    std::cout<<"f4"<<std::endl;
+    return true;
+}
 
-bool (*fparr[3])(void) = {f1, f2, f3};
+
+bool f5()
+{
+    std::cout<<"f5"<<std::endl;
+    return true;
+}
+
+
+
+
+bool (*fparr[5])(void) = {f1, f2, f3, f4, f5};
+
+
+bool (*fparr2[5])(void) = {f2, f4};
 
 
 int main(void)
@@ -55,10 +73,12 @@ int main(void)
 
     bool (**fp)(void);
 
+    bool (**fp2)(void);
     //fp = (*fparr);
 
     fp = fparr;
 
+    fp2 = fp;
 
     std::cout<<fparr<<std::endl;
     std::cout<<reinterpret_cast<void *>(*fparr)<<std::endl;
@@ -76,19 +96,28 @@ int main(void)
     while(1)
     {
 
-        //cout<<cnt<<endl;
+        
         (*fp)();
 
-        *fp = *(fp+1);
+        //*fp = *(fp+1);
+        fp = fp+1;
         
-        
-        
+
+
+        //cout<<reinterpret_cast<bool *>(fp)<<endl;
         
         //std::cout<<"size:"<<sizeof(fparr)/sizeof(*fparr)<<std::endl;
     
+ 
 
         cnt+=1;
-        if(cnt==sizeof(fparr)/sizeof(*fparr)){
+
+       if(cnt==5){
+            fp = fp2;
+        }
+
+
+        if(cnt==10){
             break;
         }
         
