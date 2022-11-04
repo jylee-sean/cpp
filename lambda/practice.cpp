@@ -1,11 +1,28 @@
 #include <iostream>
-
+#include <string>
+#include <memory>
+#include <functional>
 // https://m.blog.naver.com/hikari1224/221433853707
 
 class ClosureType
 {
     public:
-        bool operator()(int a , int b) const { return a < b ;}
+        ClosureType(){std::cout<<"Constructor called"<<std::endl;};
+
+
+        bool operator +(int a) const { 
+            std::cout<<"+ operator called"<<std::endl; 
+            return a ;
+            }
+
+        bool func()(int a, int b) const{
+            std::cout<<" func called"<<std::endl; 
+            return a + b;
+        }
+        bool operator()(int a , int b) const { 
+            std::cout<<"() operator called"<<std::endl; 
+            return a < b ;
+            }
 };
 
 
@@ -17,123 +34,170 @@ void print(int (&arr)[7])
 }
 
 
-int x= 10;
-
-int f1(){return x;}
-
-int& f2(){return x;}
-
-typedef struct _struct_test{
-    int data1;
-    int data2;
-} testData;
+#include <typeinfo>
 
 
-void func(testData *data){
+class Song
+{
+    private:
+        std::string  title;
+    public:
+        Song(std::string t):title(t) {};
+
+        void print(){std::cout<<title<<std::endl; };
+};
+
+
+typedef int (*fp)(int, int);
+
+void foo(fp f)
+{
+    int res = f(12,24);
+
+    std::cout<<res<<std::endl;
+
+};
+
+
+using ff =  std::function<int(int, int)>;
+
+
+void foo2(ff f)
+{
+    int res = f(12,24);
+
+    std::cout<<res<<std::endl;
+
+};
 
 
 
-    std::cout<<data->data1<<std::endl;
-    std::cout<<data->data2<<std::endl;
+class Test
+{
+    private:
+        int data = 0;
+    public:
+        void foo()
+        {
+            int val = 10;
+            auto f1 = [*this] () mutable {data = 10;};
+        }
+};
 
-    data->data1 = 1000;
+void f_print(int n)
+{
+    std::cout<<n<<" ";
 }
-
-
 int main(void)
 {
-    //case1
-    //int nums[7] = {5,6,7,132,53,55,99};
-    //print(nums);
-    //std::sort(nums, nums+7, ClosureType());
-    //print(nums);
 
-    //case2
-    /*int value = 10;
-    auto a = [&] () {
-         value = 20; 
-         std::cout<<value<<std::endl;
-         return;
-    };
-    a();
-    std::cout<<value<<std::endl;
-    */
+    int v[5]= {1,2,3,4,5};
 
-    //case3
-    /*
-    int nums[7] = {5,6,7,132,53,55,99};
+    //std::for_each(&v[0], &v[4], [](auto n){std::cout<< n << " ";});
 
 
-    for(auto const &&num : nums){
-        //num*=10;
-        std::cout<<num<<" "<<std::endl;
-    }
-    std::cout<<std::endl;
-
-    for(auto num : nums){
-        
-        std::cout<<num<<" "<<std::endl;
-    }*/
+    //std::cout<<std::endl;;
+    //std::for_each(&v[0], &v[5], f_print);
+    //std::cout<<std::endl;;
 
 
+    Test t;
 
-//    std::cout<<f1()<<std::endl;
-
-
-    //f2() = 20;
-    //std::cout<<x<<std::endl;
+    t.foo();
 
 
-    //int n = 0;
-    //n= 10;
+    //int (*f)(int a, int b) = [=](){return a+b;};
+    //auto l = [](int a, int b){ return a>b; };
 
-    //n++ = 20;
-    //++n = 20;
+    //foo([](int a, int b){return a*b;});
+    //foo([](int a, int b){return a+b;});
 
-    //std::cout<<n<<std::endl;
+    // auto closure = [ ](int a, int b) { return a * b; } ;                             //  inline replacement - O 
 
-    //int a = 10, int b= 0;
+    // foo(closure);
 
-    //a+b=20;
-
-    int n = 10;
-
-    //int &r = n;
-
-    int &&r2 = 10;
-
-
-
-    //std::cout<<r2<<std::endl;
-    //std::cout<<&r2<<std::endl;
-    //std::cout<<&&r2<<std::endl;
-    //std::cout<<&n<<std::endl;
-
+    // int (*f)(int, int) = [ ](int a, int b) { return a * b; };                          //  inline replacement - X
     
-    std::ratio<1000,1> r;
+    // foo(f);
 
-    //std::kilo
-    //std::cout<<r.num<<std::endl;
-    //std::cout<<r.den<<std::endl;
+    // f =  [ ](int a, int b) { return a + b; };   
+
+    // foo(f);
+
+    // std::function<int(int, int) > func = [ ](int a , int b) { return a* b; };   //  inline replacement - X
+
+    // //foo(func);
+
+    // foo2(func);
+
+    // func =  [ ](int a , int b) { return a + b; };
+
+    // foo2(func);
+
+    // foo2(closure);    
+
+    //std::cout<< typeid(l).name() <<std::endl;
+    //std::cout<< typeid(l2).name() <<std::endl;
+
+    //case1
+    int nums[7] = {5,6,7,132,53,55,99};
+    //print(nums);
+
+    //ClosureType c;
+    std::sort(nums, nums+7, ClosureType());
+
+    //std::sort(nums, nums+7, [](int a, int b){ return a < b ; } );
+    //print(nums);
+
+
+    //std::cout<<ClosureType()(3, 4)<<std::endl;
 
 
 
 
-    testData dd;
-    dd.data1 = 10;
-    dd.data2 = 20;
+    //auto res1= [](int a, int b){ return a < b ;};
 
-    _struct_test testData2;
+    //auto res2 = [](int a, int b){ return a < b ;}(44, 57); 
+
+    //std::cout<<res1<<" "<<res2<<std::endl;
+
+    // int val1 = 20; 
+    // int val2 = 30; 
+    // auto f = [val1, val2]( ) { return val1 + val2; };
+
+    // auto f2 = [ ] () { return true; };
+
+    // std::cout<<sizeof(f)<< ","<<sizeof(f2) <<std::endl;
+
+    // std::string s = "hello world";
+
+    // auto f2 = [d = move(s)] () { std::cout<<d<<std::endl; };
 
 
 
-    func(&dd);
+    // std::cout<<s<<std::endl;
+    // f2();
 
 
-    std::cout<<dd.data1<<std::endl;
-    std::cout<<dd.data2<<std::endl;
+    //std::unique_ptr<Song> song("dancing queen");
 
+    // auto ptr = std::make_unique<Song>("dancing queen");
+    // ptr->print();
+    // auto f12 = [p= move(ptr) ]() {p->print();};
+    // f12();
+    // if(ptr == nullptr){
+    //     std::cout<< "null ptr"<<std::endl;
+    // }
+     
 
+    //  const int val = 100;
+
+    //  auto fff = [](){return val;};
+
+    //  fff();
+
+    //ptr->print();
+    //std::cout<<sizeof(a)<<std::endl;
 
     return 0;
 }

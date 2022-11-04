@@ -8,23 +8,19 @@
 
 using namespace std;
 #define CALL_MEMBER_FN(object,ptrToMember)  ((object).*(ptrToMember))
-int i=10;
-int j=20;
-int k=30;
-int *arr[3] = {&i, &j, &k};
-
-//int *ptr;
 
 class A;
-typedef  bool (A::*fp)(void);  
-
 class B
 {
     public:
+        //class A;
+        typedef  bool (A::*fp)(void);  
         fp *ptr;
+
+
 };
 
-class A
+class A : public B
 {
 
 
@@ -90,8 +86,15 @@ class A
 
             
         }
+    private:
+        //bool f11();
 };
 
+
+bool A::f11()
+{
+    return false;
+}
 
 bool f4()
 {
