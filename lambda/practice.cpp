@@ -9,7 +9,6 @@ class ClosureType
     public:
         ClosureType(){std::cout<<"Constructor called"<<std::endl;};
 
-
         bool operator +(int a) const { 
             std::cout<<"+ operator called"<<std::endl; 
             return a ;

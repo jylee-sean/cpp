@@ -57,6 +57,7 @@ class A
             return true;
         };
 
+
         void func(){
 
 
