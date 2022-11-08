@@ -9,12 +9,7 @@ class ClosureType
     public:
         ClosureType(){std::cout<<"Constructor called"<<std::endl;};
 
-        bool operator +(int a) const { 
-            std::cout<<"+ operator called"<<std::endl; 
-            return a ;
-            }
-
-        bool func()(int a, int b) const{
+        bool func(int a, int b) const{
             std::cout<<" func called"<<std::endl; 
             return a + b;
         }
@@ -22,6 +17,15 @@ class ClosureType
             std::cout<<"() operator called"<<std::endl; 
             return a < b ;
             }
+        bool operator()(double a , double b) const { 
+            std::cout<<"() double operator called"<<std::endl; 
+            return a < b ;
+            }
+        bool operator()(int a , int b, int c) const { 
+            std::cout<<"() operator2 called"<<std::endl; 
+            return a < b ;
+            }
+            
 };
 
 
@@ -79,7 +83,12 @@ class Test
         void foo()
         {
             int val = 10;
-            auto f1 = [*this] () mutable {data = 10;};
+            auto f1 = [this] () {data = 10;};
+            auto f2 = [*this] () {data = 10;};
+            f2();
+        }
+        void print(){
+             std::cout<<this->data<<std::endl;
         }
 };
 
@@ -90,7 +99,9 @@ void f_print(int n)
 int main(void)
 {
 
-    int v[5]= {1,2,3,4,5};
+
+
+    //int v[5]= {1,2,3,4,5};
 
     //std::for_each(&v[0], &v[4], [](auto n){std::cout<< n << " ";});
 
@@ -99,11 +110,9 @@ int main(void)
     //std::for_each(&v[0], &v[5], f_print);
     //std::cout<<std::endl;;
 
-
     Test t;
-
     t.foo();
-
+    t.print();
 
     //int (*f)(int a, int b) = [=](){return a+b;};
     //auto l = [](int a, int b){ return a>b; };
@@ -139,11 +148,16 @@ int main(void)
     //std::cout<< typeid(l2).name() <<std::endl;
 
     //case1
-    int nums[7] = {5,6,7,132,53,55,99};
+    //double nums[7] = {5,6,7,132,53,55,99};
     //print(nums);
 
     //ClosureType c;
-    std::sort(nums, nums+7, ClosureType());
+
+    
+    //std::sort(nums, nums+7, ClosureType());
+
+
+    //c(1,2,3);
 
     //std::sort(nums, nums+7, [](int a, int b){ return a < b ; } );
     //print(nums);

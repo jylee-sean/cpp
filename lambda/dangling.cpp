@@ -23,21 +23,15 @@ class Test
                 std::cout<<"default by value: "<<m_vec[0]<<std::endl;  
                 } );
 
-            con.emplace_back([&]{
+            /*con.emplace_back([&]{
                 std::cout<<"default by reference: "<<m_vec[1]<<std::endl;
-            });
+            });*/
         };
     private:
         std::vector<int> m_vec;
 };
 
 
-
-enum st{
-    st_1 = 1,
-    st_2 = 2,
-    st_3 = 3
-};
 
 int main()
 {
@@ -46,11 +40,14 @@ int main()
     instance->push_back_lambda_function();
 
     con[0]();
-    con[1]();   
+    //con[1]();   
     delete instance;
     instance = nullptr;
 
+    //Test arr[1000];
+    con[0]();
+    //con[1]();   
  
-    std::cout<< 400 + st::st_1*10 + 1 <<std::endl;
+ 
     return 0;
 }

@@ -24,34 +24,36 @@ class tree
             head->left = nullptr;
             head->right = nullptr;
         }
+
+         
         void print()
         {
             node *ptr = head;
-            std::cout<< ptr->data << std::endl;
+            //std::cout<< ptr->data << std::endl;
 
             while(1){
-                std::cout<<ptr->data<<std::endl;
-                if(ptr->right != nullptr){
-                    s.push(ptr->right);
-                }else{
-                    if(!s.empty()){
-                        *ptr = s.top();
-                        s.pop();
-                    }else{
-                        break;
-                    }
-                }                
+
 
                 if(ptr->left != nullptr){
+
+                    if(ptr->right != nullptr){
+                        s.push(*(ptr->right));
+                    }    
                     ptr= ptr->left;
-                }else{
-                    if(!s.empty()){
-                        *ptr = s.top();
-                        s.pop();
-                    }else{
-                        break;
-                    }
                 }
+                else if( (ptr->left == nullptr) && (ptr->right != nullptr) ){
+                    ptr= ptr->right;
+                }
+                else if(!s.empty()){
+                    *ptr = s.top();
+                    s.pop();
+                }
+                else{
+                    break;
+                }
+            
+
+                std::cout<<ptr->data<<std::endl;
 
             }
         }
@@ -67,10 +69,11 @@ class tree
             newnode->right = nullptr;
 
             node *ptr = head;
-
             while(1){
                 if(compare(data, ptr->data )){
+
                     if(ptr->right == nullptr){
+                        //std::cout<<"larger: "<< data <<std::endl;
                         ptr->right = newnode;
                         break;
                     }else{
@@ -78,6 +81,7 @@ class tree
                     }
                 }else{
                     if(ptr->left == nullptr){
+                        //std::cout<<"smaller: "<< data <<std::endl;
                         ptr->left = newnode;
                         break;
                     }else{
@@ -106,7 +110,10 @@ int main()
     t.add(33);
     t.add(32);
     t.add(31);
-    t.add(30);
+    t.add(103);
+    t.add(45);
+    t.add(48);
+    t.add(43);
 
     t.print();
     return 0;
