@@ -9,19 +9,9 @@ class state_machine
         //using fp = void (T::*)(int val);
         using fp = std::function<void(T&,int)>;
 
-        fp state(){
+        void state(){
            std::cout<<"state"<<std::endl;
-           return this->_curr;
         }
-    
-    protected:
-        void transit(fp next){
-
-            this->_curr = next;
-        }
-    private:
-        fp _curr;
-
 };
 template<typename T>
 class base : public state_machine<T>
@@ -36,14 +26,12 @@ class A :public base<A>
 
     void run(){
 
-        fp next = &A::func;
-
-        transit(next);        
-
+        fp prev = &A::func;
         
-        //(this->*state())(100);
-        state()(*this,100);
-   
+
+        //(this->*state())();
+        //(this->*prev)(100);
+        //prev(*this, 100);
 
     }
     void func(int a){
