@@ -1,4 +1,6 @@
-
+/**
+ * g++ -std=c++14 -I /opt/homebrew/opt/boost/include state_machine.cc
+*/
 #define BOOST_TEST_MODULE Unit_test_example_04 
 //#include <ccl/state_machine.h>
 #include "state_machine.h"
@@ -18,6 +20,7 @@ class robot_machine_A : public ccl::state_machine<robot_machine_A>{
     }
     void run() override{
         (this->*state())();
+        //state()(*this)();
     }
     void start(){
         once([&](){
@@ -55,6 +58,8 @@ class robot_machine_B : public ccl::state_machine<robot_machine_B, state_msg_B>{
     void run(state_msg_B m) {
         (this->*state())(m);
     }
+
+    
     void start(state_msg_B m){
         state_t next;
         once([&](){
@@ -81,6 +86,7 @@ class robot_machine_B : public ccl::state_machine<robot_machine_B, state_msg_B>{
     state_msg m_t;
 };
 BOOST_AUTO_TEST_SUITE(CCL)
+
 
 
 
@@ -207,6 +213,91 @@ BOOST_AUTO_TEST_CASE(CASE0062)
     BOOST_TEST(B.prev() == &robot_machine_B::standby);
     BOOST_TEST(B.state() == &robot_machine_B::start);
     BOOST_TEST(B.m_t.where.is_equal("standby::once,"));
+}
+
+
+
+BOOST_AUTO_TEST_CASE(CASE0063)
+{
+    /**
+	 * @test{}
+	 * @ref unit-test, @ref automated-test, @ref target-none
+	 * @SRS{N/A}
+	 * @SDS{N/A}
+	 * @unit{ccl::state_machine}
+	 * @description{
+	 *		this test cases shows the way state machine works.
+     *      prev() is invoked to check previous state.
+     *      state() is invoked to check current state.
+     *      run() is invoked to get the state change
+     *      Also, internal method like transit, reetner, once are implemented in the templated class.
+     *      In addition, msgs is given to the state machine during run()
+	 * }
+	 * @prerequsite{
+	 *		Remote QNX target is required
+	 * }
+	 * @environment{N/A}
+	 * @parameters{
+	 *		number of repetitions = 1
+	 * }
+	 * @instructions{N/A}
+	 * @criteria{
+	 *		PASS, if state transitions works successfully
+	 *		FAIL, otherwise
+	 * }
+	 * @expect{
+	 *		PASS
+	 * }
+	 * @result{
+	 *		PASS / FAIL
+	 * }
+	 */
+
+    robot_machine_B B;
+
+    state_msg_B stB;
+
+    stB.msg = 10;
+    
+    BOOST_TEST(!B.prev());
+    BOOST_TEST(!B.state());
+    BOOST_TEST(B.m_t.where.is_empty());
+    
+    B.run();
+    BOOST_TEST(!B.prev());
+    BOOST_TEST(B.state() == &robot_machine_B::start);
+    BOOST_TEST(B.m_t.where.is_empty());
+
+    B.run(state_msg_B{1});
+    BOOST_TEST(B.prev() == &robot_machine_B::start);
+    BOOST_TEST(B.state() == &robot_machine_B::start);
+    BOOST_TEST(B.m_t.where.is_equal("start::once,"));
+
+    B.run(state_msg_B{0});
+    BOOST_TEST(B.prev() == &robot_machine_B::start);
+    BOOST_TEST(B.state() == &robot_machine_B::standby);
+    BOOST_TEST(B.m_t.where.is_equal("start::transit,"));
+
+    B.run(state_msg_B{0});
+    BOOST_TEST(B.prev() == &robot_machine_B::start);
+    BOOST_TEST(B.state() == &robot_machine_B::standby);
+    BOOST_TEST(B.m_t.where.is_equal("standby::once,"));
+
+    B.run(state_msg_B{2});
+    BOOST_TEST(!B.prev());
+    BOOST_TEST(B.state() == &robot_machine_B::standby);
+    BOOST_TEST(B.m_t.where.is_equal("standby::once,"));
+
+    B.run(state_msg_B{1});
+    BOOST_TEST(B.prev() == &robot_machine_B::standby);
+    BOOST_TEST(B.state() == &robot_machine_B::start);
+    BOOST_TEST(B.m_t.where.is_equal("standby::once,"));
+
+
+    B.step(stB);
+    BOOST_TEST(B.prev() == &robot_machine_B::start);
+    BOOST_TEST(B.state() == &robot_machine_B::standby);
+
 }
 
 BOOST_AUTO_TEST_SUITE_END() // CCL

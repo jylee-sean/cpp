@@ -23,11 +23,11 @@ class state_machine
         fp _curr;
 
 };
+
 template<typename T>
 class base : public state_machine<T>
 {
     public:
-
 };
 
 class A :public base<A>
@@ -35,30 +35,18 @@ class A :public base<A>
     public:
 
     void run(){
-
         fp next = &A::func;
-
         transit(next);        
-
-        
         //(this->*state())(100);
         state()(*this,100);
-   
-
     }
     void func(int a){
         std::cout<<a<<"called"<<std::endl;
     }
-
-
 };
 int main()
 {
-
     A a;
-
     a.run();
-
-
     return 0;
 }
