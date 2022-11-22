@@ -14,22 +14,21 @@ void worker1(std::mutex& m1, std::mutex& m2) {
 }
 
 void worker2(std::mutex& m1, std::mutex& m2) {
+  for (int i = 0; i < 10; i++) {
+    while (true) {
+      m2.lock();
 
-    while(true){
-        if(m1.try_lock()){
-            std::cout << "m1 locked!!! " <<  std::endl;            
-            break;
-        }        
-    }
-    for(int i=0;i< 10 ; i++){
-        m2.lock();
-
-        std::cout << "Worker2 Hi! " << i << std::endl;
+      if (!m1.try_lock()) {
         m2.unlock();
-        m1.unlock();
-    }
+        continue;
+      }
 
-    
+      std::cout << "Worker2 Hi! " << i << std::endl;
+      m1.unlock();
+      m2.unlock();
+      break;
+    }
+  }
 }
 
 

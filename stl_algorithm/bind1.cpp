@@ -1,7 +1,12 @@
 #include <iostream>
 #include <algorithm>
 #include <functional>
+#include <string>
 
+std::string str;
+
+
+str = "error";
 using namespace std::placeholders;
 
 class Test

@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <thread>
-
+#include <algorithm>
 #include <cstring>
 
 using namespace std;
@@ -65,7 +65,6 @@ public:
     
     Mystring& operator+(const Mystring &val){
         int newSize = val.length + this->length;
-
         char* tmp = new char[newSize];
         snprintf(tmp, newSize, "%s%s", this->str, val.str);
         Mystring *ret = new class Mystring(tmp);
@@ -73,10 +72,9 @@ public:
     }
 
     Mystring& operator=(const Mystring &val){
-        char* tmp = new char[val.length];
-        std::copy(val.str,val.str+val.length,tmp);
-        Mystring *ret = new class Mystring(tmp);
-        return *ret;
+        swap(val.str, str);
+        this->length = val.length;
+        return *this;
     }
     // Destructor
     ~Mystring() { delete str; }
@@ -87,7 +85,6 @@ public:
 
 
 Mystring& do_something_with_txt(Mystring& txt){
-    
     Mystring res = txt + "_add";
     //cout<<res<<endl;
     return txt;
@@ -101,11 +98,9 @@ void do_other_computation(){
 
 void file_read(Mystring* result) {
   //string txt = read("a.txt");  // (1)
-
   Mystring txt = "hello world";
   *result = do_something_with_txt(txt);
-  
-  cout<<*result<<endl;
+  //cout<<*result<<endl;
 }
 int main() {
   //string result2;

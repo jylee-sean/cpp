@@ -30,7 +30,7 @@ void consumer(std::queue<std::string>* downloaded_pages, std::mutex* m, int* num
         m->lock();
 
         if(downloaded_pages->empty()){
-            m->unlock();
+            m->unlock(); // if this instruction doesn't exist, it could cause deak lock.
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
             continue;
         }

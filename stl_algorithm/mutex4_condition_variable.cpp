@@ -89,6 +89,8 @@ int main()
     for(auto &thread:producers){
         thread.join();
     }
+
+    //thread in sleep state cannot be joined ..
     cv.notify_all();
     for(auto &thread:consumers){
         thread.join();

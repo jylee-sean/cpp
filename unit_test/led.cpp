@@ -32,14 +32,43 @@ class led : public base
     bool set(const color_t color, 
              const std::chrono::steady_clock::duration interval = std::chrono::milliseconds(0), 
              bool sync = false){
+        
+        {
+            std::lock_guard<std::mutex> lk(_lock);
+            _pred = true;
+        }
+        if(_future.valid()){
+            _condvar.notify_all();
+            if(_future.wait_for(std::chrono::milliseconds(1000)) != std::future_status::ready){ // check: need to understand
+                throw ;// runtime_error("std::future error");
+            }
+        }
    
         this->_color.store(color);
         this->_interval.store(interval);
-        (void)_output.write(reinterpret_cast<uint8_t*>(&(this->_color))); // check
+        (void)_output.write(reinterpret_cast<uint8_t*>(&(this->_color))); // check: reinterpret_cast
 
         if( (interval > std::chrono::milliseconds(0)) && (this->_color != color_t::off) ){
-        
+            
 
+            _future = std::async(std::launch::async,[]{});
+            //_future = std::async(std::launch::async, [this, sync, interval]() {
+            /*
+                _pred = false;
+                if(this->_prio != -1){
+                    struct sched_param s;
+                    //(void)::sched_getparam(0,&s);
+                    s.sched_priority = this->_prio;
+                    //(void)::sched_setscheduler(0,SCHED_RR, &s);
+                }
+                //(void)::pthread_setname_np(0,"led::blink");
+                color_t c = this->_color.load();
+
+                std::chrono::steady_clock::duration delay ((std::chrono::steady_clock::now().time_since_epoch().count() % interval.count())+1);
+
+            });
+            
+            */
 
         }
 
