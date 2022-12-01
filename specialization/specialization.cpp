@@ -33,7 +33,7 @@ public:
 
 protected:
     
-    template<int A>    
+    template<int N>    
     void _update(){};
 
     template<>
