@@ -35,8 +35,6 @@ void sort(int*x , int sz, T cmp)
         }
     }
 }
-
-
 struct Less
 {
     inline bool operator()(int a, int b) const {return a>b;}
