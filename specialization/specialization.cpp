@@ -1,61 +1,79 @@
 
+
+
+
+//#include "input.h"
 #include <iostream>
-
-
 class observer
 {
     public:
     virtual void update() = 0;
 };
-template<typename T>
+
+template<typename Ty>
 class input : public observer
 {
-public:
-    using value_type = uint64_t;
-    struct system {
-        static constexpr size_t offset = 0;
-        
-    };
 
-    struct subsystem {
-        static constexpr size_t offset = 0;
-        
-    };
+  public:
+    input(){};
+    virtual ~input(){};
+  
+    virtual void update() override{
 
-    input()  {    }
-    virtual ~input() { }
-
-    virtual void update() override {
-        
-        _update<0>();
-        _update<1>();
-    }
-
-protected:
+        //iupdate<int,0>()();
+        //iupdate<int,1>()();
+        std::cout<<"call update()"<<std::endl;
     
-    template<size_t value>    
-    void _update(){};
 
-    template<>
-    void _update<0>() {
-        static constexpr size_t N = 0;
-        std::cout << N  <<std::endl;
+        _update<0>()();
+        _update<1>()();
     }
 
-    template<>
-    void _update<1>() {
-        static constexpr size_t N = 1;
-        std::cout << N  <<std::endl;
+
+
+
+  protected:
+
+    template<typename T, int NUM>
+    struct iupdate;
+    template<typename T>
+    struct iupdate<T, 0>
+    { 
+        void operator()(){
+            static constexpr size_t N = 0;
+            std::cout << N  <<std::endl;
+            std::cout<<"call update<T,0>"<<std::endl;
+        }
     };
+    template<typename T>
+    struct iupdate<T, 1>
+    { 
+        void operator()(){
+            static constexpr size_t N = 1;
+            std::cout << N  <<std::endl;
+
+            std::cout<<"call update<T,1>"<<std::endl;
+        }
+    };
+
+    //template<int num>
+    //using _update = iupdate<char, num>
+    template<int num>
+    using _update = iupdate<int, num>;
 };
-
-
 int main()
 {
 
-    input<int> i;
+//    Object<int, 1> obj1;
+//    Object<int, 2> obj2;
 
+    input<double> i;
     i.update();
+    // core::input<int> i;
+
+    // i.get<1>(2);
+    // i.set<3>(4);
+    // i.update();
 
     return 0;
 }
