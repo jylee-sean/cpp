@@ -1,7 +1,3 @@
-
-
-
-
 //#include "input.h"
 #include <iostream>
 class observer
@@ -34,8 +30,9 @@ class input : public observer
 
   protected:
 
-    template<typename T, int NUM>
+    template<typename T=Ty, int NUM=-1>
     struct iupdate;
+
     template<typename T>
     struct iupdate<T, 0>
     { 
@@ -56,10 +53,8 @@ class input : public observer
         }
     };
 
-    //template<int num>
-    //using _update = iupdate<char, num>
     template<int num>
-    using _update = iupdate<int, num>;
+    using _update = iupdate<Ty, num>;
 };
 int main()
 {
