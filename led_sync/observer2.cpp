@@ -10,28 +10,21 @@ using namespace std;
 
 class led;
 
-struct Observer
+struct Subject
 {
     vector<led*> v;
-    virtual ~Observer() {}
+    virtual ~Subject() {}
 };
 
 class led 
 {
     std::string _name;
     int _color;
-    Observer* _o;
 
 public:
     bool _blinking;
 
     led():_blinking(false){}
-
-    void attach(Observer* p) {
-        _o = p;
-        _o->v.push_back(this);    
-    }
-  
 
     int GetColor() { return _color;}
     std::string GetName() { return _name;}
@@ -54,14 +47,24 @@ public:
         
     }
 
+    void update()
+    {
+        if(_blinking){
+            cout << "blinking:" << _name <<endl;
+        }
+    }
+
 };
 
 
 
-class BlinkManager : public Observer
+class BlinkManager : public Subject
 {
 public:
-
+    void attach(led* led_instance)
+    {
+        v.push_back(led_instance);    
+    }
 
     void run()
     {
@@ -69,20 +72,11 @@ public:
             int n;
             cin>> n;
             for(auto p:v ){
-                if(p->_blinking){
-                    std::string s = p->GetName();
-                    cout << "blinking:" << s <<endl;
-                }
+                p->update();
             }
         }
         
     }
-
-private:
-    std::future<bool> _future;
-
-
-
 };
 
 int main()
@@ -91,15 +85,17 @@ int main()
 
     led iled;
     iled.SetData("iled",2);
-    iled.attach( &bm);
-
+    //iled.attach( &bm);
+    bm.attach(&iled);
     led pled;
     pled.SetData("pled",4);
-    pled.attach( &bm);
-
+    //pled.attach( &bm);
+    bm.attach(&pled);
     led gled;
     gled.SetData("gled",6);
-    gled.attach( &bm);
+    bm.attach(&gled);
+    
+    //gled.attach( &bm);
 
 
     std::thread bm_thread([&]{bm.run();});
