@@ -7,26 +7,35 @@ using namespace std;
 
 
 
-enum data_type
-{
-    _UINT64 = 0,
-    _UINT32 = 1,
-};
-
 struct block
 {
-    int _dt;
-    union data{
+    block(std::pair<std::string, uint64_t> value)
+    {
+        _size = sizeof(value.second);
+        //cout<<"block construct : 64 bit : "<< value.first <<" "<<_size <<endl;
+
+    }
+    block(std::pair<std::string, uint32_t> value)
+    {
+        _size = sizeof(value.second);
+        //cout<<"block construct : 32 bit : "<< value.first <<" "<<_size <<endl;
+    }
+
+    
+
+    union  __attribute__((packed)) data{
         uint64_t d64;
         uint32_t d32;
     }d;
+
+    int _size;
 };
 
 class machine
 {
     public:
 
-        machine()
+        machine():_gi(0),_td(1)
         {
             cout<<"machine construct"<<endl;
             _v ={ &_gi, &_td};
@@ -36,56 +45,50 @@ class machine
         struct memory{
             memory(){
                 cout<<"memory construct"<<endl;
-            }     
+            }
+            int _order;
             virtual ~memory() {};
         };
-      
 
+   
         struct general_info : public memory{
             
-            static const int order = 0;
-            general_info()
+            
+            general_info(int order)
             {   
+                _order = order;
                 cout<<"general_info construct"<<endl;
 
-                serial_number._dt = data_type::_UINT64;
-                year._dt = data_type::_UINT32;
-                date._dt = data_type::_UINT32;
-            
-                _bv={serial_number, year, date};
-
+                _bv.emplace_back(block( std::pair<string,uint64_t>("serial_number", 0)  )   );
+                _bv.emplace_back(block( std::pair<string,uint32_t>("year", 0)  )   );
+                _bv.emplace_back(block( std::pair<string,uint32_t>("date", 0)  )   );
             }
 
             vector<block>& getVector() { return _bv; }
             vector<block> _bv;
-
-            block serial_number;
-            block year;
-            block date;
-        
-        }_gi;
+        };
         struct tunning_data : public memory{
 
-            static const int order = 1;
-            tunning_data()
+            tunning_data(int order)
             {
+                 _order = order;
+
                 cout<<"tunning data construct"<<endl;
 
-                uid1._dt = data_type::_UINT64;
-                uid2._dt = data_type::_UINT64;
+                _bv.emplace_back(block( std::pair<string,uint64_t>("uid1", 0)  )   );
+                _bv.emplace_back(block( std::pair<string,uint64_t>("uid2", 0)  )   );
 
-                _bv = {uid1, uid2};
+
             }
             vector<block>& getVector() { return _bv; }
 
             vector<block> _bv;
-            block uid1;
-            block uid2;
 
-        }_td;
+
+        };
 
         template <typename T>
-        void read(uint32_t *arr){
+        void read(uint32_t *arr, int info){
 
             //block* ptr;
             int idx = 0;
@@ -93,22 +96,25 @@ class machine
 
             
             vector<block>::iterator it;
-            for(it =dynamic_cast<T*>(_v[T().order])->getVector().begin(); 
-                it != dynamic_cast<T*>(_v[T().order])->getVector().end(); it++)
+
+            for(it =dynamic_cast<T*>(_v[info])->getVector().begin(); 
+                it != dynamic_cast<T*>(_v[info])->getVector().end(); it++)
             {
-                if((*it)._dt == data_type::_UINT64)
+
+                //cout<<(*it)._size<<endl;
+                
+                
+                if(it->_size == sizeof(uint64_t))
                 {
-                    (*it).d.d64 = arr[idx]*256 + arr[idx+1];
+                    it->d.d64 = arr[idx]*256 + arr[idx+1];
                     idx+=2;
-                    cout<<(*it).d.d64<<endl;
+                    cout<<it->d.d64<<endl;
                 }
                 else
                 {
-                    (*it).d.d32 = arr[idx];
+                    it->d.d32 = arr[idx];
                     idx++;                
-                    cout<<(*it).d.d32<<endl;
-                
-                
+                    cout<<it->d.d32<<endl;
                 }
             }
 
@@ -126,10 +132,11 @@ class machine
         //memory _mem;
 
         vector<memory*> _v;
+        general_info _gi;
+        tunning_data _td;
+
         
-       
-    //map< string, map<std::string,double> > map_data;
-  
+   
 };
 
 
@@ -162,17 +169,26 @@ int main()
     ROM r1(1);
     ROM r2(2);
 
+    cout<<"---------"<<endl;
     machine m;
 
+    enum info_idx
+    {
+        general_info= 0,
+        tunning_data= 1
+    };
+   cout<<"---------"<<endl;     
 
-    m.read<machine::general_info>(r1.data);
-    m.read<machine::tunning_data>(r2.data);
+    m.read<machine::general_info>(r1.data, info_idx::general_info);
+    cout<<"---------"<<endl;     
+    
+    m.read<machine::tunning_data>(r2.data, info_idx::tunning_data);
     //m.read<machine::general_info>(r1.data);
     cout<<"---------"<<endl;
     //m.read2(r2.data);
     //m.read<machine::tunning_data>(r2.data);
 
-
+    
 
     cout<<dynamic_cast<machine::general_info*>(m.getMemory()[0])->_bv[0].d.d64<<endl;
     cout<<dynamic_cast<machine::general_info*>(m.getMemory()[0])->_bv[1].d.d32<<endl;
@@ -181,16 +197,6 @@ int main()
     cout<<dynamic_cast<machine::tunning_data*>(m.getMemory()[1])->_bv[0].d.d64<<endl;
     cout<<dynamic_cast<machine::tunning_data*>(m.getMemory()[1])->_bv[1].d.d64<<endl;
 
-
-    // for(vector<machine::memory*>::iterator it = m.getMemory().begin(); m.getMemory.end(); it++ )
-    // {
-    //     cout<<(*it)<<endl;
-    // }
-    //cout<<m.getMemory()._gi.serial_number<<endl;
-    //cout<<m.getMemory()._gi.year<<endl;
-    // cout<<m.getMemory()._gi.date<<endl;
-    // cout<<m.getMemory()._td.uid1<<endl;
-    // cout<<m.getMemory()._td.uid2<<endl;
 
     return 0;
 }
