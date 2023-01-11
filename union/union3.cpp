@@ -24,14 +24,30 @@ struct block
 
     
 
-    union  __attribute__((packed)) data{
+    // union  __attribute__((packed)) data{
+    //     uint64_t d64;
+    //     uint32_t d32;
+    // }d;
+
+    union data{
         uint64_t d64;
         uint32_t d32;
     }d;
-
     int _size;
 };
 
+enum general_info
+{
+    serial_number,
+    year,
+    date
+};
+
+enum tunning_data
+{
+    uid1,
+    uid2
+};
 class siis
 {
     public:
@@ -60,123 +76,125 @@ class siis
 		input_t& input() { return _input; }
 		output_t& output() { return _output; }
 
-        struct memory{
-            memory(){
-                cout<<"memory construct"<<endl;
-            }
-            int _order;
-            memory read(int val)
+
+
+        struct block
+        {
+            block(int name, uint64_t value)
             {
-                _order = val;
-                cout<<"read function "<<endl;
-                uint32_t romdata[4] = {35u, 5u, 255u, 65u};
-                //uint32_t data[4] = {125u, 51u, 47u, 13u};
-
-                for(int i=0 ; i<4; i++)
-                {
-                    d.d32[i]=romdata[i];
-                }
-                cout<<d.d32[0]<<endl;
-                return *this;
-
-                // if fail, return nullptr
+                //d.d64 = value;
+                //_size = sizeof(value.second);
+                //cout<<"block construct : 64 bit : "<< value.first <<" "<<_size <<endl;
+                //using value_type = uint64_t;
             }
-
-            virtual ~memory() {cout<<"destructed"<<endl;};
+            block(int name, uint32_t value)
+            {
+             //   d.d32 = value;
+                 //using value_type = uint32_t;
+            }
 
             union  __attribute__((packed)) data{
-                uint64_t d64[2];
-                uint32_t d32[4];
+                uint64_t d64;
+                uint32_t d32;
             }d;
-        };
 
-        struct general_info : public memory{
-            
-            general_info()//:_order{0}
+             
+        };
+ 
+
+        
+
+
+        struct cache
+        {
+            std::vector<block> gi = 
             {
-                cout<<"general info"<<endl;
+                (static_cast<uint64_t>(general_info::serial_number,0)),
+                (static_cast<uint32_t>(general_info::year, 0)),
+                (static_cast<uint32_t>(general_info::date, 0))
+            };
 
-            }
-            ~general_info()
+            std::vector<block> td = 
             {
-                cout<<"general info destructed"<<endl;
-            }
-            // memorys* write()
-            // {
-            //     serial_number = &d.d64[0];
-            //     year = &d.d32[1];
-            //     date = &d.d32[2];
-
-            //     return this;
-            // }
-
-            // void get_data()
-            // {
-            //     serial_number = &d.d64[0];
-            //     year = &d.d32[1];
-            //     date = &d.d32[2];
-
-            // }
-            uint64_t* serial_number; //= &d.d64[0];
-            uint32_t* year; //= &d.d32[1];
-            uint32_t* date; // = &d.d32[2];
-
-        };
-        struct tunning_data : public memory{
-            tunning_data()//: _order{1}
-            {cout<<"tunning data"<<endl;}
-
-
-            // memory* write()
-            // {
-            //     uid1 =&d.d64[0]; 
-            //     uid2 =&d.d64[1];
-            // }
-            uint64_t* uid1;
-            uint64_t* uid2;
+                (static_cast<uint64_t>(tunning_data::uid1,0)),
+                (static_cast<uint64_t>(tunning_data::uid2,0))
+            };
         };
 
-        // template <typename T>
-        // void read(uint32_t *arr, int info){
+ 
+        // struct general_info : public data{
+        //     general_info(): serial_number{&d.d64[0]}, {&d.d32[2]},{&d.d32[3]}
+        //     {}
+        //     uint64_t* serial_number;
+        //     uint32_t* year; 
+        //     uint32_t* date;             
+        // };
+        // struct tunning_data : public data{
+        //     uint64_t* uid1;
+        //     uint64_t* uid2;
+        // };
 
-        //     //block* ptr;
-        //     int idx = 0;
 
+
+        template<typename T>
+        void read(cache c, int index)
+        {
+            //std::vector<block> vec;
 
             
-        //     vector<block>::iterator it;
+            //T t;
 
-        //     for(it =dynamic_cast<T*>(_v[info])->getVector().begin(); 
-        //         it != dynamic_cast<T*>(_v[info])->getVector().end(); it++)
-        //     {
+            
+            cout<<"read function "<<endl;
+            if (index == 0)
+                uint32_t romdata[4] = {35u, 5u, 255u, 65u};
+            else
+                uint32_t romdata[4] = {125u, 51u, 47u, 13u};
 
-        //         //cout<<(*it)._size<<endl;
-                
-                
-        //         if(it->_size == sizeof(uint64_t))
-        //         {
-        //             it->d.d64 = arr[idx]*256 + arr[idx+1];
-        //             idx+=2;
-        //             cout<<it->d.d64<<endl;
-        //         }
-        //         else
-        //         {
-        //             it->d.d32 = arr[idx];
-        //             idx++;                
-        //             cout<<it->d.d32<<endl;
-        //         }
-        //     }
-        // }
+            for(int i=0 ; i<4; i+=2)
+            {
+                //cout<<i<<endl;
+                if(c.gi[idx].value_type == uint64_t)
+                {
+                    c.gi[idx].d.d64 = romdata[i]*256 + romdata[i+1];
+                    
+                }   
+                else
+                {
+                    c.gi[idx].d.d32 = romdata[i];
+                    c.gi[i+1].d.d32 = romdata[i+1];
+                }
+                // if(i==0){
+                //     vec.emplace_back(block(static_cast<uint64_t>(romdata[i]*256 + romdata[i+1])));
+                // }
+                // else{
+                //     vec.emplace_back(block(static_cast<uint32_t>(romdata[i])));
+                //     vec.emplace_back(block(static_cast<uint32_t>(romdata[i+1])));
+                // }
+                d.d32[i]=romdata[i];
+            }
+            //cout<<d.d32[0]<<endl;
+            //return vec;
+            // if fail, return nullptr
+        }
+
+        cache load()
+        {
+            cache c;
 
 
+            read<siis::general_info>(&c, 0);
+            read<siis::tunning_data>(&c, 1);
+            
+            return c;
+        } 
         bool read_data(const int arm_no)
         {
-
-            cout<<"read data"<<endl;
-            _arm[arm_no].emplace_back(siis::general_info().read(0));
-
-            cout<<"++++++++"<<endl;
-            _arm[arm_no].emplace_back(siis::tunning_data().read(1));
+            _arm.emplace_back(load());
+            // arm_no를 각각 부르는 것보다는 동시에 , 각 데이터는 사이클마다 수행하는 것이 효율적.
+            // cout<<"read data"<<endl;
+            // _arm[arm_no].emplace_back(read<siis::general_info>(0));
+            // _arm[arm_no].emplace_back(read<siis::tunning_data>(1));
 
             //this->read<siis::general_info>(r1.data, info_idx::general_info);
             //this->read<siis::tunning_data>(r1.data, info_idx::general_info);
@@ -184,15 +202,14 @@ class siis
             return true;
         }
 
+        
 
         void printout()
         {
-
-            cout<<_arm[0][0].d.d32[0]<<endl;
-
+            cout<<"printout"<<endl;
         }
 
-        vector<memory>& getMemory(const int arm_no){
+        std::vector<std::vector<block>>& getMemory(const int arm_no){
             return _arm[arm_no];
         }
 
@@ -204,10 +221,9 @@ class siis
         //vector<memory*> _v;
         //general_info _gi;
         //tunning_data _td;
-
-        std::array<vector<memory>, 4> _arm;        
-
-
+    
+        std::vector<siis::cache> _arm;        
+    
 
         input_t _input;
         output_t _output;
@@ -249,11 +265,11 @@ int main()
     cout<<"---------"<<endl;
     siis s;
 
-    // enum info_idx
-    // {
-    //     general_info= 0,
-    //     tunning_data= 1
-    // };
+    enum info_idx
+    {
+        general_info= 0,
+        tunning_data= 1
+    };
 
 
     s.read_data(0);
@@ -268,26 +284,11 @@ int main()
    // m.read<machine::tunning_data>(r2.data, info_idx::tunning_data);
     cout<<"---------"<<endl;
    
-    //cout<<s.getMemory(0)[0]->d.d64[0] <<endl;
-    //
-    //cout<<s.getMemory(0)[0]->d.d64[1] <<endl;
 
     s.printout();
 
-    cout<<s.getMemory(0)[0].d.d32[0] <<endl;
-    cout<<s.getMemory(0)[0].d.d32[1] <<endl;
-    cout<<s.getMemory(0)[0].d.d32[2] <<endl;
-
-    cout<<s.getMemory(0)[0]._order <<endl;
-    cout<<s.getMemory(0)[1]._order <<endl;
-    //cout<<s.getMemory(0)[0]->d <<endl;
-    // cout<<dynamic_cast<machine::general_info*>(m.getMemory()[0])->_bv[0].d.d64<<endl;
-    // cout<<dynamic_cast<machine::general_info*>(m.getMemory()[0])->_bv[1].d.d32<<endl;
-    // cout<<dynamic_cast<machine::general_info*>(m.getMemory()[0])->_bv[2].d.d32<<endl;
-
-    // cout<<dynamic_cast<machine::tunning_data*>(m.getMemory()[1])->_bv[0].d.d64<<endl;
-    // cout<<dynamic_cast<machine::tunning_data*>(m.getMemory()[1])->_bv[1].d.d64<<endl;
-
-
+    cout<<s.getMemory(0)[info_idx::general_info].d.d64<<endl;
+    cout<<s.getMemory(0)[info_idx::general_info].d.d32<<endl;
+    cout<<s.getMemory(0)[info_idx::general_info].d.d32<<endl;
     return 0;
 }
