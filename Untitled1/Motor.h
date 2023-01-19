@@ -2,6 +2,8 @@
 #include <vector>
 
 
+using namespace std; // added in hotfix branch
+
 class Motor
 {
 
