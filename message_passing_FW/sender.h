@@ -14,14 +14,16 @@ namespace messaging
         template<typename Message>
         void send(Message const& msg) {
             if(q)
-                q->push_back(msg);
+                q->push(msg);
+                //q->push_back(msg);
         }
 
-		template<typename Message>
-		void raise(Message const& msg) {
-			if(q)
-				q->push_front(msg);
-		}
+        //custom
+		// template<typename Message>
+		// void raise(Message const& msg) {
+		// 	if(q)
+		// 		q->push_front(msg);
+		// }
 
 	private:
         queue* q;

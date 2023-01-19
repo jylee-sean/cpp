@@ -6,6 +6,7 @@ int main()
 {
     bank_machine bank;
     interface_machine interface_hardware;
+
     atm machine(bank.get_sender(),interface_hardware.get_sender());
     std::thread bank_thread(&bank_machine::run,&bank);
     std::thread if_thread(&interface_machine::run,&interface_hardware);
@@ -44,7 +45,7 @@ int main()
         case 'i':
             atmqueue.send(card_inserted("acc1234"));
             break;
-} }
+    } }
     bank.done();
     machine.done();
     interface_hardware.done();

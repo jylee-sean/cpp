@@ -22,6 +22,7 @@ namespace messaging
         explicit wrapped_message(Msg const& contents_) : contents(contents_) { }
     };
 
+    // custom class
 	class message_handler
 	{
 	public:
@@ -47,33 +48,47 @@ namespace messaging
     {
         std::mutex m;
         std::condition_variable c;
-        std::deque<std::shared_ptr<message_base>> q;
+        std::queue<std::shared_ptr<message_base>> q;
+        //std::deque<std::shared_ptr<message_base>> q; custom
     public:
-		void clear() {
-            std::lock_guard<std::mutex> lk(m);
-			q.clear();
-		}
-			
+
+
         template<typename T>
-        void push_back(T const& msg) {
+        void push(T const& msg)
+        {
             std::lock_guard<std::mutex> lk(m);
-            q.push_back(std::make_shared<wrapped_message<T>>(msg));
+            q.push(std::make_shared<wrapped_message<T>>(msg));
             c.notify_all();
         }
-
-		template<typename T>
-		void push_front(T const& msg) {
-            std::lock_guard<std::mutex> lk(m);
-            q.push_front(std::make_shared<wrapped_message<T>>(msg));
-            c.notify_all();
-		}
 
         std::shared_ptr<message_base> wait_and_pop() {
             std::unique_lock<std::mutex> lk(m);
             c.wait(lk,[&]{return !q.empty();});
             auto res=q.front();
-            q.pop_front();
+            q.pop();
+            //q.pop_front();
             return res;
         }
+
+        // custom functions : clear, push, wait and pop
+		// void clear() {
+        //     std::lock_guard<std::mutex> lk(m);
+		// 	q.clear();
+		// }	
+        // template<typename T>
+        // void push_back(T const& msg) {
+        //     std::lock_guard<std::mutex> lk(m);
+        //     q.push_back(std::make_shared<wrapped_message<T>>(msg));
+        //     c.notify_all();
+        // }
+
+		// template<typename T>
+		// void push_front(T const& msg) {
+        //     std::lock_guard<std::mutex> lk(m);
+        //     q.push_front(std::make_shared<wrapped_message<T>>(msg));
+        //     c.notify_all();
+		// }
+
+
     };
 }

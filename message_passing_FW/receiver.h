@@ -17,9 +17,11 @@ namespace messaging
         {
             return dispatcher(&q);
         }
-		void flush() {
-			q.clear();
-		}
+
+        //custom
+    	// void flush() {
+		// 	q.clear();
+		// }
 
     };
 }

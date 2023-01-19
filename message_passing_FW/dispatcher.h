@@ -6,6 +6,7 @@
 
 namespace messaging
 {
+	//custom class
 	struct error {
 		error(const std::error_code& e) : _error_code(e) { }
 		const std::error_code error_code() const { return _error_code; }
@@ -14,10 +15,11 @@ namespace messaging
 	};
 
     struct close_queue {
-		close_queue(int code = 0) : _code(code) { }
-		const int code() const { return _code; }
-	private:
-		const int _code;
+	// [custom implementation]
+	// 	close_queue(int code = 0) : _code(code) { }
+	// 	const int code() const { return _code; }
+	// private:
+	// 	const int _code;
 	};
 
     class dispatcher
@@ -43,7 +45,8 @@ namespace messaging
 				throw messaging::error(dynamic_cast<wrapped_message<messaging::error>*>(msg.get())->contents);
 			}
 			if(dynamic_cast<wrapped_message<close_queue>*>(msg.get())) {
-				throw close_queue(dynamic_cast<wrapped_message<close_queue>*>(msg.get())->contents.code());
+				//custom: throw close_queue(dynamic_cast<wrapped_message<close_queue>*>(msg.get())->contents.code());
+				throw close_queue();
 			}
 			return false;
 		}

@@ -25,61 +25,67 @@ class siis_obj
         tunning_data = 1
     };
     
-    struct data{
+    struct abs{
+        abs(){cout<<"'abs generated"<<endl;}
+        virtual void set()
+        {
+
+        }
+    }a;
+    
+    static void swap(uint64_t* target)
+    {
+        uint64_t value = 0x0000000000000000;
+        value |= ((*target & 0x00000000ffffffff)<<32);
+        value |= ((*target & 0xffffffff00000000)>>32);
+
+        *target  = value;                 
+    }
   
-        struct __attribute__((packed)) generalinfo_t {
+    struct __attribute__((packed)) generalinfo_t : public abs{
 
-            static const uint8_t a = 0;
-            uint64_t serial_number;
-            uint32_t year;
-            uint32_t date;
+ //       static const uint8_t a = 0;
+        uint64_t serial_number;
+        uint32_t year;
+        uint32_t date;
 
-            static void func()
-            {
-                cout<<"called"<<endl;
-            }
-        
-            void set()
-            {
-                uint64_t value = 0x0000000000000000;
-                value |= ((serial_number & 0x00000000ffffffff)<<32);
-                value |= ((serial_number & 0xffffffff00000000)>>32);
+        static uint8_t index()
+        {
+            return 0u;
+        }   
+    
+        virtual void set() override
+        {
+            cout<<"gi swap"<<endl;
+            swap(&serial_number);
+            //cout<<hex<<serial_number<<endl;
+            
+        }
+    };
+    
+    struct __attribute__((packed)) tunningdata_t : public abs{
 
-                serial_number  = value;                 
-                //cout<<hex<<serial_number<<endl;
-                
-            }
-        } generalinfo;
-        struct __attribute__((packed)) tunningdata_t {
-            static const uint8_t a = 1;
-            uint64_t uid1;
-            uint64_t uid2;
-             static void func()
-            {
-                cout<<"called2"<<endl;
-            }           
-            void set()
-            {
-                uint64_t value = 0x0000000000000000;
-                value |= ((uid1 & 0x00000000ffffffff)<<32);
-                value |= ((uid1 & 0xffffffff00000000)>>32);
-
-                uid1 = value;       
-                
-                value = 0x0000000000000000;
-                value |= ((uid2 & 0x00000000ffffffff)<<32);
-                value |= ((uid2 & 0xffffffff00000000)>>32);    
-
-                uid2 = value;
-                //cout<<hex<<serial_number<<endl;
-                
-            }
-        } tunningdata;
+//        static const uint8_t a = 1;
+        uint64_t uid1;
+        uint64_t uid2;
+        static uint8_t index()
+        {
+            return 1u;
+        }           
+        virtual void set() override
+        {
+            cout<<"td swap"<<endl;
+            swap(&uid1);
+            swap(&uid2);
+            //cout<<hex<<serial_number<<endl;
+            
+        }
     };
 
+
+    
+
 };
-
-
 
 class siis
 {
@@ -97,8 +103,8 @@ class siis
 
 
         struct cache_t {
-            siis_obj::data::generalinfo_t gi;
-            siis_obj::data::tunningdata_t td;
+            siis_obj::generalinfo_t gi;
+            siis_obj::tunningdata_t td;
 
         };
 		input_t& input() { return _input; }
@@ -107,8 +113,8 @@ class siis
         bool load(const uint32_t arm_no) {
     
 
-            read<siis_obj::data::generalinfo_t>(arm_no, (&_arm[arm_no].gi), 0);
-            read<siis_obj::data::tunningdata_t>(arm_no, (&_arm[arm_no].td), 1);
+            read<siis_obj::generalinfo_t>(arm_no, (&_arm[arm_no].gi));
+            read<siis_obj::tunningdata_t>(arm_no, (&_arm[arm_no].td));
             // if(read(arm_no, siis_obj::memid_t::general_info, reinterpret_cast<siis_obj::data*>(&_arm[arm_no].gi)) < 0
             //     /*|| read(arm_no, siis_obj::memid_t::tunning_data, reinterpret_cast<siis_obj::data*>(&_arm[arm_no].td)) < 0*/)
             //      { return false; }
@@ -120,42 +126,50 @@ class siis
         }
 
         template<typename T>
-        void read(const uint32_t arm_no,  T* dst, int val, const int32_t timeout = 1000) {
+        void read(const uint32_t arm_no,  T* dst,  const int32_t timeout = 1000) {
             //ssize_t ret = sizeof(siis_obj::data);
 
-            uint8_t b = T::a;
-            cout<<b<<endl;
+            //uint8_t b = T::a;
+            //cout<<b<<endl;
+            
             //cout<<"value: "<<T::a<<endl;
             uint32_t romdata[4] ={};
-            if(val ==0){
+
+            if(T::index() ==0){
                 romdata[0] = 32u+ 3u; //0x00100011  // 0x00000023
                 romdata[1] = 5u;      //0x00000101  // 0x00000005   // 0x0000002300000005 ==> 8965
                 romdata[2] = 255u;    //0x11111111  // 0x000000FF
                 romdata[3] = 65u;     //0x01000001  // 0x00000041
             }else{
-                romdata[0] = 123245235u;    //0x01111101   // 0x7D
-                romdata[1] = 51u;     //0x00110011  // 0x33   // 0x7d33 ==> 32051
+                romdata[0] = 2293039300u;    //0x01111101   // 0x7D
+                romdata[1] = 57836u;     //0x00110011  // 0x33   // 0x7d33 ==> 32051
                 romdata[2] = 47u;    //0x00101111   // 0x2F
                 romdata[3] = 13u;     //0x00001101  // 0x0D   // 0x2F0D ==> 12045
             }
-            
-            for(int32_t j = 0; j < 4;j++ )
+
+            //siis_obj::abs aaa;
+            //cout<<sizeof(aaa)<<endl;
+            // TODO  index 수정
+            // cout<<dst<<endl;
+            // reinterpret_cast<uint64_t*>(dst);
+            // dst+=1;
+            // cout<<dst<<endl;
+
+            for(int32_t j = 0; j < 4 ;j++ )
             {
-
-                *(reinterpret_cast<uint32_t*>(dst) + j) =romdata[j];
-                
-                cout<<*(reinterpret_cast<uint32_t*>(dst) + j)<<endl;
-
+                *(reinterpret_cast<uint32_t*>(dst) + j + 2 ) =romdata[j];          
+                cout<<*(reinterpret_cast<uint32_t*>(dst) + j)<<"\n address:" <<hex<<(reinterpret_cast<uint32_t*>(dst) + j)<<endl;
             }
 
-            dst->set();
-            
+            // cout<<"dst: "<<dst<<endl;
+            // cout<<"sn: "<<&dst->serial_number<<endl;
+            // cout<<"year: "<<&dst->year<<endl;
+            // cout<<"dat: "<<&dst->date<<endl;
+            //cout<<"dat: "<<&(dst->set)<<endl;
+            //(--dst)->set();            
             // cout<<hex<<dst->serial_number<<endl;
             // cout<<hex<<dst->year<<endl;
             // cout<<hex<<dst->date<<endl;
-
-
-
             //return true;
         }
         void printout()
@@ -221,27 +235,18 @@ int main()
     //     tunning_data= 1
     // };
 
+    
 
+    cout<<sizeof(siis_obj::a)/sizeof(uint32_t)<<endl;
     s.load(0);
     //s.read_data(1);
 
     //cout<<   dynamic_cast<siis::general_info*>(s.getMemory(0)[0])->serial_number <<endl;
-    // cout<<s.getMemory(0).gi[0].d.d64<<endl;
-    // cout<<s.getMemory(0).gi[1].d.d32<<endl;
-    // cout<<s.getMemory(0).gi[2].d.d32<<endl;
-    cout<<"---------"<<endl;     
-    //m.read<machine::general_info>(r1.data, info_idx::general_info);
-    cout<<"---------"<<endl;     
-    
-   // m.read<machine::tunning_data>(r2.data, info_idx::tunning_data);
-    cout<<"---------"<<endl;
    
 
     //s.printout();
 
 
-    cout<<typeid(uint64_t).name() <<endl;
-    cout<<typeid(uint32_t).name() <<endl;
     cout<<hex<<s.cache(0).gi.serial_number<<endl;
     cout<<hex<<s.cache(0).gi.year<<endl;
     cout<<hex<<s.cache(0).gi.date<<endl;

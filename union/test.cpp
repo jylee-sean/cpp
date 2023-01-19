@@ -116,7 +116,7 @@ class siis
 
                 *(reinterpret_cast<uint32_t*>(dst) + j) =romdata[j];
                 
-                cout<<*(reinterpret_cast<uint32_t*>(dst) + j)<<endl;
+                cout<<*(reinterpret_cast<uint32_t*>(dst) + j)<<endl;a
 
             }
 
