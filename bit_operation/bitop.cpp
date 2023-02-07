@@ -13,7 +13,7 @@ int main()
 
 
     cout<<forward<<endl;
-    cout<<bitset<32>(forward)<<endl;
+    cout<< bitset<32>(forward)<<endl;
     cout<<hex<<forward<<endl;
     
 
