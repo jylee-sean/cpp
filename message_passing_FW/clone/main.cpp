@@ -10,7 +10,10 @@
 #include <thread>
 using namespace std;
 
+struct regulate
+{
 
+};
 struct digit_pressed
 {
     
@@ -21,11 +24,27 @@ struct withdraw
     
 };
 
+struct regulate_fake
+{
+
+};
+struct digit_pressed_fake
+{
+    
+};
+
+struct withdraw_fake
+{
+    
+};
+
+
 namespace messaging
 {
 
 	struct message_base
 	{
+        virtual ~message_base() { }
 
 	};
 
@@ -46,24 +65,6 @@ namespace messaging
 
 		public:
 
-
-            // queue(){
-
-            //     cout<<"q constructed" << &q <<endl;
-            // }
-
-
-//			void print_queue()
-//			{
-//                //cout<<q.front()<<endl;
-//                cout<< "queue is empty?"<< q.empty()<<endl;
-//				while(!q.empty())
-//				{
-//					cout<< q.front() << " ";
-//					q.pop();
-//				}
-//			}
-
 			 template<typename T>
 			 void push(T const& msg)
 			 {
@@ -81,9 +82,9 @@ namespace messaging
                 // cout<<"wait and pop  "<< q.empty()<<endl;
 			 	// queue가 비어 있다면 condition_variable을 통해서 대기
 			 	
-                cout<<"wait"<<endl;
+                cout<<"9. wait"<<endl;
                  c.wait(lk, [&]{ return !q.empty();} );
-                cout<<"pop"<<endl;
+                cout<<"10. pop"<<endl;
 			 	auto res = q.front();
 			 	q.pop();
                  
@@ -93,7 +94,7 @@ namespace messaging
 			 }
 	};
 
-       template<typename PreviousDispatcher,typename Msg,typename Func>
+    template<typename PreviousDispatcher,typename Msg,typename Func>
     class TemplateDispatcher
     {
         queue* q;
@@ -110,15 +111,13 @@ namespace messaging
         void wait_and_dispatch()
         {
 
-            std::cout<<"wait and dispatch"<<std::endl;
+            std::cout<<"8. wait and dispatch"<<std::endl;
             for(;;)
             {
                 auto msg=q->wait_and_pop();
                 if(dispatch(msg))
                     break;
             }
-
-            
         }
 
         bool dispatch(std::shared_ptr<message_base> const& msg)
@@ -126,12 +125,13 @@ namespace messaging
             if(wrapped_message<Msg>* wrapper=
                dynamic_cast<wrapped_message<Msg>*>(msg.get()))
             {
-                std::cout<<"template dispatch!!"<<std::endl;
+                std::cout<<"11. template dispatch!!"<<std::endl;
                 f(wrapper->contents);
                 return true;
             }
             else
             {
+                std::cout<<"11(prev). template dispatch!!"<<std::endl;
                 return prev->dispatch(msg);
             }
         }
@@ -140,13 +140,14 @@ namespace messaging
             q(other.q),prev(other.prev),f(std::move(other.f)),
             chained(other.chained)
         {
+            cout<<"====================================???? when does this function called?"<<endl;
             other.chained=true;
         }
 
         TemplateDispatcher(queue* q_,PreviousDispatcher* prev_,Func&& f_):
             q(q_),prev(prev_),f(std::forward<Func>(f_)),chained(false)
         {
-            std::cout<<"template dispatcher generated"<<std::endl;
+            std::cout<<"4. template dispatcher generated"<<std::endl;
             prev_->chained=true;
         }
 
@@ -154,8 +155,7 @@ namespace messaging
         TemplateDispatcher<TemplateDispatcher,OtherMsg,OtherFunc>
         handle(OtherFunc&& of)
         {
-
-            std::cout<<"handle in template disaptcher"<<std::endl;
+            std::cout<<"5. [handle] in template disaptcher"<<std::endl;
             return TemplateDispatcher<
                 TemplateDispatcher,OtherMsg,OtherFunc>(
                     q,this,std::forward<OtherFunc>(of));
@@ -163,7 +163,7 @@ namespace messaging
 
         ~TemplateDispatcher() noexcept(false)
         {
-            std::cout<<"template dispacher destroyed"<<std::endl;
+            std::cout<<"7. template dispacher destroyed"<<" chained : "<< chained<<std::endl;
             if(!chained)
             {
                 wait_and_dispatch();
@@ -211,6 +211,7 @@ namespace messaging
 			// 	//custom: throw close_queue(dynamic_cast<wrapped_message<close_queue>*>(msg.get())->contents.code());
 			// 	throw close_queue();
 			// }
+            cout<<"dispatch in dispacher class"<<endl;
 			return false;
 		}
 
@@ -219,11 +220,12 @@ namespace messaging
 			other.chained=true;
 		}
 
-		explicit dispatcher(queue* q_) : q(q_),chained(false) { }
+		explicit dispatcher(queue* q_) : q(q_),chained(false) { cout<<"2. dispatcher(&q) generated"<<endl;}
 
 		template<typename Message,typename Func>
 		TemplateDispatcher<dispatcher,Message,Func> handle(Func&& f) {
-			std::cout<<"handle in disaptcher"<<std::endl;
+            cout<<"3. [handle] in dispatcher called"<<endl;
+			//std::cout<<"handle in disaptcher"<<std::endl;
 			return TemplateDispatcher<dispatcher,Message,Func>(q,this,std::forward<Func>(f));
 		}
 
@@ -327,13 +329,14 @@ class atm
         return incoming;
     }
 
-    
+    ////    
     void waiting_for_card()
     {
-        cout<<"here"<<endl;
+        cout<<"1. receiver wait function called"<<endl;
         
-        incoming.wait().handle<digit_pressed>([&]{cout<<"======digit pressed msg======"<<endl;})
-                        .handle<withdraw>([&]{cout<<"======withdraw msg======"<<endl;});
+        incoming.wait().handle<digit_pressed>([&](digit_pressed const& msg){cout<<"======digit pressed msg======"<<endl;})
+                         .handle<regulate>([&](regulate const& msg){cout<<"======regulate msg======"<<endl;})
+                        .handle<withdraw>([&](withdraw const& msg){cout<<"======withdraw msg======"<<endl;});
         
         cout<<"done"<<endl;
     }
@@ -358,7 +361,7 @@ int main()
     //messaging::sender s;
     //messaging::receiver r;
 
-    
+    cout<<"************************************************"<<endl;
     bank_machine bank;
     interface_machine interface_hardware;
 
@@ -376,6 +379,9 @@ int main()
     int n=1;
     while(flag)
     {
+        
+
+        this_thread::sleep_for(chrono::milliseconds(1500));
         cout<<"input: ";
         cin>>n;
         
@@ -383,11 +389,19 @@ int main()
         {
             case 1:
                 atmqueue.send(withdraw());
-                break;
-            case 2:
+                atmqueue.send(digit_pressed());
+                atmqueue.send(withdraw());
                 atmqueue.send(digit_pressed());
                 break;
+            case 2:
+                atmqueue.send(regulate());
+                break;
             case 3:
+
+                atmqueue.send(withdraw_fake());
+                atmqueue.send(digit_pressed_fake());
+                atmqueue.send(withdraw_fake());
+            case 4:
                 flag = false;
                 break;
         }
