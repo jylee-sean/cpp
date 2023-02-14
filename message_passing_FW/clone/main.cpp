@@ -389,9 +389,9 @@ int main()
         {
             case 1:
                 atmqueue.send(withdraw());
-                atmqueue.send(digit_pressed());
-                atmqueue.send(withdraw());
-                atmqueue.send(digit_pressed());
+                atmqueue.send(digit_pressed()); // not executed
+                atmqueue.send(withdraw()); // not executed
+                atmqueue.send(digit_pressed()); // not executed
                 break;
             case 2:
                 atmqueue.send(regulate());
