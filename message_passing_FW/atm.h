@@ -136,16 +136,25 @@ class atm {
     }
     void waiting_for_card()
     {
-        interface_hardware.send(display_enter_card());
+        //interface_hardware.send(display_enter_card());
+        std::cout<<"waiting for card"<<std::endl;
         incoming.wait()
             .handle<card_inserted>(
                 [&](card_inserted const& msg)
-                {   account=msg.account;
+                {   
+                    std::cout<<"lambda: card inserted"<<std::endl;
+                    account=msg.account;
                     pin="";
                     interface_hardware.send(display_enter_pin());
                     state=&atm::getting_pin;
                 } 
                 );
+            // .handle<cancel_pressed>(
+            //     [&](cancel_pressed const& msg)
+            //     {
+            //         state=&atm::done_processing;
+            //     }
+            //     );
     }
     void done_processing()
     {

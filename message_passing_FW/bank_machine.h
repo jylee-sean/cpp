@@ -17,6 +17,7 @@ public:
                     .handle<verify_pin>(
                         [&](verify_pin const& msg)
                         {
+                            std::cout<<"here"<<std::endl;
                             if(msg.pin=="1937")
                             {
                                 msg.atm_queue.send(pin_verified());

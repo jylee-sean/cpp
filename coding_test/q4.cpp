@@ -20,15 +20,23 @@ int getNext(int n1, int n2)
 int Fibonacci(int n) {
     // Write code here
 
-    if(n==1)
-        return 0;
-    if(n==2)
-        return 1;
-    if (n==3)
-        return 0 + 1;
+    // if(n<2)
+    //     return n;
+    // return Fibonacci(n-2) + Fibonacci(n-1);
 
+    if(n<2)
+        return n;
 
-    return Fibonacci(n-2) + Fibonacci(n-1);
+    int arr[n]={0,1,};
+    for(int i = 2; i<n ; i++){
+        arr[i] = arr[i-1]+arr[i-2];
+        
+    }
+    // for(int i= 0; i<n; i++){
+    //     cout<<arr[i]<<" ";
+    // }
+    // cout<<" "<<endl;
+    return arr[n-1]; 
 
 }
 

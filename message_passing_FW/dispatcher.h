@@ -60,10 +60,12 @@ namespace messaging
 
 		template<typename Message,typename Func>
 		TemplateDispatcher<dispatcher,Message,Func> handle(Func&& f) {
+			std::cout<<"handle in disaptcher"<<std::endl;
 			return TemplateDispatcher<dispatcher,Message,Func>(q,this,std::forward<Func>(f));
 		}
 
 		~dispatcher() noexcept(false) {
+			std::cout<<"dispatcher destroyed"<<std::endl;
 			if(!chained) {
 				wait_and_dispatch();
 			}

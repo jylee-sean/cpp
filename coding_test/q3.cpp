@@ -9,12 +9,18 @@
 void replace_odd_with_zero(int *arr, int n) {
   // Write code here
   for(int i =0;i<n ; i++){
-    if(arr[i]%2 == 1){
-      arr[i] = 0;
+    // if(arr[i]%2 == 1){
+    //   arr[i] = 0;
+    // }
+  
+    if( *(arr+i)% 2== 1){
+      *(arr+i) = 0;
     }
   }
 }
 
+
+// 배열 이름은 포인터 
 int main() {
   int arr[] = {5, 3, 7, 1, 4};
   int n = sizeof(arr) / sizeof(arr[0]);
