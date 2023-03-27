@@ -1,5 +1,0 @@
-/Users/sean/vs_workspace/boost_test/CMakeFiles/libTestcase.dir
-/Users/sean/vs_workspace/boost_test/CMakeFiles/mytest.test.dir
-/Users/sean/vs_workspace/boost_test/CMakeFiles/test.dir
-/Users/sean/vs_workspace/boost_test/CMakeFiles/edit_cache.dir
-/Users/sean/vs_workspace/boost_test/CMakeFiles/rebuild_cache.dir
